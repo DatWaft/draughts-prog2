@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Archivos de encabezado\Contenedores">
+      <UniqueIdentifier>{21087c4d-f8ab-4b34-9fd1-f329299ce645}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -21,7 +24,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="List.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\Contenedores</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Archivos de encabezado\Contenedores</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
