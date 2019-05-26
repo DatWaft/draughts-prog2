@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -7,9 +8,10 @@ using namespace std;
 
 int main()
 {
-	Node<int>* node = new Node<int>(10);
-	cout << "[" << node->getPrev() << "] <-- [" << node << "]-->[" << node->getNext() << "]" << endl;
-	++node;
-	cout << "[" << node->getPrev() << "] <-- [" << node << "]-->[" << node->getNext() << "]" << endl;
+	Node<int*> node(new int(10));
+	node.createNext(new int(20));
+
+	cout << *node.getData() << " " << *(node.getNext())->getData() << endl;
+
 	system("pause");
 }

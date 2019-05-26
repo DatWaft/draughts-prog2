@@ -17,19 +17,11 @@ public:
 	Node<T>* getPrev();
 	T getData();
 
-	void createNext(T);
-	void createPrev(T);
+	Node<T>* createNext(T);
+	Node<T>* createPrev(T);
 
 	bool deleteNext();
 	bool deletePrev();
-
-	bool operator == (const Node<T>&);
-	bool operator != (const Node<T>&);
-
-	Node<T>& operator ++ ();
-	Node<T> operator ++ (int);
-	Node<T>& operator -- ();
-	Node<T> operator -- (int);
 
 	T& operator *();
 	T* operator ->();
@@ -83,23 +75,25 @@ inline T Node<T>::getData()
 }
 
 template<class T>
-inline void Node<T>::createNext(T data)
+inline Node<T>* Node<T>::createNext(T data)
 {
 	Node<T>* aux = new Node(data);
 	aux->next = this->next;
 	aux->prev = this;
 
 	this->next = aux;
+	return aux;
 }
 
 template<class T>
-inline void Node<T>::createPrev(T data)
+inline Node<T>* Node<T>::createPrev(T data)
 {
 	Node<T>* aux = new Node(data);
 	aux->next = this;
 	aux->prev = this->prev;
 
 	this->prev = aux;
+	return aux;
 }
 
 template<class T>
@@ -131,50 +125,6 @@ inline bool Node<T>::deletePrev()
 }
 
 template<class T>
-inline bool Node<T>::operator==(const Node<T>& node)
-{
-	return this->data == node.data && this->next == node.next && this->prev == node.prev;
-}
-
-template<class T>
-inline bool Node<T>::operator!=(const Node<T>& node)
-{
-	return !(*this == node);
-}
-
-template<class T>
-inline Node<T>& Node<T>::operator++()
-{
-	if(this->next)
-		*this = *this->next;
-	return *this;
-}
-
-template<class T>
-inline Node<T> Node<T>::operator++(int)
-{
-	Node<T> result(*this);
-	++(*this);
-	return result;
-}
-
-template<class T>
-inline Node<T>& Node<T>::operator--()
-{
-	if(this->prev)
-		*this = *this->prev;
-	return *this;
-}
-
-template<class T>
-inline Node<T> Node<T>::operator--(int)
-{
-	Node<T> result(*this);
-	++(*this);
-	return result;
-}
-
-template<class T>
 inline T& Node<T>::operator*()
 {
 	return this->data;
@@ -185,5 +135,3 @@ inline T* Node<T>::operator->()
 {
 	return &(this->data);
 }
-
-
