@@ -59,9 +59,9 @@ inline Node<T>::~Node()
 template<class T>
 inline void Node<T>::operator=(const Node<T>& node)
 {
-	this->data = node.data;
-	this->prev = node.prev;
-	this->next = node.next;
+		this->data = node.data;
+		this->prev = node.prev;
+		this->next = node.next;
 }
 
 template<class T>
@@ -145,7 +145,8 @@ inline bool Node<T>::operator!=(const Node<T>& node)
 template<class T>
 inline Node<T>& Node<T>::operator++()
 {
-	*this = *this->next;
+	if(this->next)
+		*this = *this->next;
 	return *this;
 }
 
@@ -160,7 +161,8 @@ inline Node<T> Node<T>::operator++(int)
 template<class T>
 inline Node<T>& Node<T>::operator--()
 {
-	*this = *this->prev;
+	if(this->prev)
+		*this = *this->prev;
 	return *this;
 }
 
