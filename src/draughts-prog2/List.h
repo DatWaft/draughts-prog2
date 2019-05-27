@@ -1,5 +1,6 @@
 #pragma once
 #include "Node.h"
+#include "Exception.h"
 
 template<class T>
 class List
@@ -15,12 +16,13 @@ public:
 	void operator = (const List&);
 
 	size_t getSize() const;
+	bool empty() const;
 
 	void insert(T, size_t);
 	void insert(T);
 
-	void erase(size_t);
-	void erase();
+	bool erase(size_t);
+	bool erase();
 
 	bool clear();
 
@@ -59,6 +61,12 @@ inline size_t List<T>::getSize() const
 }
 
 template<class T>
+inline bool List<T>::empty() const
+{
+	return size == 0;
+}
+
+template<class T>
 inline void List<T>::insert(T data, size_t index)
 {
 }
@@ -66,22 +74,45 @@ inline void List<T>::insert(T data, size_t index)
 template<class T>
 inline void List<T>::insert(T data)
 {
+	if (this->empty())
+	{
+		this->first = new Node<T>(data);
+		this->last = this->first;
+	}
+	else
+	{
+		this->last = this->last->createNext(data);
+	}
 }
 
 template<class T>
-inline void List<T>::erase(size_t index)
+inline bool List<T>::erase(size_t index)
 {
+	checkIndex(index);
 }
 
 template<class T>
-inline void List<T>::erase()
+inline bool List<T>::erase()
 {
+	if (this->empty())
+		return false;
+	if (this->size == 1)
+	{
+		delete this->first;
+		this->first = nullptr;
+		this->last = nullptr;
+	}
+	else
+	{
+		this->last = this->last->prev;
+		this->last->deleteNext();
+	}
 }
 
 template<class T>
 inline bool List<T>::clear()
 {
-	return false;
+	while (this->erase());
 }
 
 template<class T>
@@ -93,5 +124,8 @@ inline T& List<T>::operator[](size_t index)
 template<class T>
 inline void List<T>::checkIndex(size_t index)
 {
-	
+	if (index < 0)
+		throw Exception("Indice menor a 0.");
+	if (index > this->size)
+		throw Exception("Indice mayor a " + std::to_string(this->size) +".");
 }
