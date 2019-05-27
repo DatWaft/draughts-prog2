@@ -15,7 +15,7 @@ public:
 
 	Node<T>* getNext();
 	Node<T>* getPrev();
-	T getData();
+	T& getData();
 
 	Node<T>* createNext(T);
 	Node<T>* createPrev(T);
@@ -69,7 +69,7 @@ inline Node<T>* Node<T>::getPrev()
 }
 
 template<class T>
-inline T Node<T>::getData()
+inline T& Node<T>::getData()
 {
 	return this->data;
 }
@@ -81,7 +81,10 @@ inline Node<T>* Node<T>::createNext(T data)
 	aux->next = this->next;
 	aux->prev = this;
 
+	
 	this->next = aux;
+	if(aux->next)
+		aux->next->prev = aux;
 	return aux;
 }
 
@@ -93,6 +96,8 @@ inline Node<T>* Node<T>::createPrev(T data)
 	aux->prev = this->prev;
 
 	this->prev = aux;
+	if(aux->prev)
+		aux->prev->next = aux;
 	return aux;
 }
 

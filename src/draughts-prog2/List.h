@@ -24,11 +24,12 @@ public:
 	bool erase(size_t);
 	bool erase();
 
-	bool clear();
+	void clear();
 
 	T& operator [] (size_t);
+	T& operator [] (size_t) const;
 private:
-	void checkIndex(size_t);
+	void checkIndex(size_t) const;
 };
 
 template<class T>
@@ -36,12 +37,17 @@ inline List<T>::List()
 {
 	this->first = nullptr;
 	this->last = nullptr;
+	this->size = 0;
 }
 
 template<class T>
 inline List<T>::List(const List& list)
 {
-	for (auto i = 0; i < list.getSize(); i++)
+	this->first = nullptr;
+	this->last = nullptr;
+	this->size = 0;
+
+	for (size_t i = 0; i < list.size; i++)
 		this->insert(list[i]);
 }
 
@@ -55,7 +61,7 @@ template<class T>
 inline void List<T>::operator=(const List& list)
 {
 	this->clear();
-	for (auto i = 0; i < list.getSize(); i++)
+	for (size_t i = 0; i < list.getSize(); i++)
 		this->insert(list[i]);
 }
 
@@ -87,11 +93,12 @@ inline void List<T>::insert(T data, size_t index)
 	}
 	else
 	{
-		Node<T> aux = this->first;
-		for (auto i = 0; i < index; i++)
+		Node<T>* aux = this->first;
+		for (size_t i = 0; i < index - 1; i++)
 			aux = aux->getNext();
-		aux.createNext(data);
+		aux->createNext(data);
 	}
+	this->size++;
 }
 
 template<class T>
@@ -106,6 +113,7 @@ inline void List<T>::insert(T data)
 	{
 		this->last = this->last->createNext(data);
 	}
+	this->size++;
 }
 
 template<class T>
@@ -128,16 +136,17 @@ inline bool List<T>::erase(size_t index)
 	}
 	else if (index == this->size - 1)
 	{
-		this->last = this->last->prev;
+		this->last = this->last->getPrev();
 		this->last->deleteNext();
 	}
 	else
 	{
-		Node<T> aux = this->first;
-		for (auto i = 0; i < index - 1; i++)
+		Node<T>* aux = this->first;
+		for (size_t i = 0; i < index - 1; i++)
 			aux = aux->getNext();
-		aux.deleteNext();
+		aux->deleteNext();
 	}
+	this->size--;
 	return true;
 }
 
@@ -154,13 +163,15 @@ inline bool List<T>::erase()
 	}
 	else
 	{
-		this->last = this->last->prev;
+		this->last = this->last->getPrev();
 		this->last->deleteNext();
 	}
+	this->size--;
+	return true;
 }
 
 template<class T>
-inline bool List<T>::clear()
+inline void List<T>::clear()
 {
 	while (this->erase());
 }
@@ -169,17 +180,27 @@ template<class T>
 inline T& List<T>::operator[](size_t index)
 {
 	checkIndex(index);
-	Node<T> aux = this->first;
-	for (auto i = 0; i < index; i++)
-		aux = aux.getNext();
-	return *aux;
+	Node<T>* aux = this->first;
+	for (size_t i = 0; i < index; i++)
+		aux = aux->getNext();
+	return aux->getData();
 }
 
 template<class T>
-inline void List<T>::checkIndex(size_t index)
+inline T& List<T>::operator[](size_t index) const
+{
+	checkIndex(index);
+	Node<T>* aux = this->first;
+	for (size_t i = 0; i < index; i++)
+		aux = aux->getNext();
+	return aux->getData();
+}
+
+template<class T>
+inline void List<T>::checkIndex(size_t index) const
 {
 	if (index < 0)
 		throw Exception("Indice menor a 0.");
-	if (index > this->size)
-		throw Exception("Indice mayor a " + std::to_string(this->size) +".");
+	if (index >= this->size)
+		throw Exception("Indice mayor a " + std::to_string(this->size - 1) +".");
 }
