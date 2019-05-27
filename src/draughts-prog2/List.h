@@ -41,17 +41,22 @@ inline List<T>::List()
 template<class T>
 inline List<T>::List(const List& list)
 {
-	
+	for (auto i = 0; i < list.getSize(); i++)
+		this->insert(list[i]);
 }
 
 template<class T>
 inline List<T>::~List()
 {
+	this->clear();
 }
 
 template<class T>
 inline void List<T>::operator=(const List& list)
 {
+	this->clear();
+	for (auto i = 0; i < list.getSize(); i++)
+		this->insert(list[i]);
 }
 
 template<class T>
@@ -69,6 +74,24 @@ inline bool List<T>::empty() const
 template<class T>
 inline void List<T>::insert(T data, size_t index)
 {
+	this->checkIndex(index);
+
+	if (this->empty())
+	{
+		this->first = new Node<T>(data);
+		this->last = this->first;
+	}
+	else if(index == 0)
+	{
+		this->first = this->first->createPrev(data);
+	}
+	else
+	{
+		Node<T> aux = this->first;
+		for (auto i = 0; i < index; i++)
+			aux = aux->getNext();
+		aux.createNext(data);
+	}
 }
 
 template<class T>
@@ -88,7 +111,34 @@ inline void List<T>::insert(T data)
 template<class T>
 inline bool List<T>::erase(size_t index)
 {
+	if (this->empty())
+		return false;
 	checkIndex(index);
+
+	if (this->size == 1)
+	{
+		delete this->first;
+		this->first = nullptr;
+		this->last = nullptr;
+	}
+	else if (index == 0)
+	{
+		this->first = this->first->getNext();
+		this->first->deletePrev();
+	}
+	else if (index == this->size - 1)
+	{
+		this->last = this->last->prev;
+		this->last->deleteNext();
+	}
+	else
+	{
+		Node<T> aux = this->first;
+		for (auto i = 0; i < index - 1; i++)
+			aux = aux->getNext();
+		aux.deleteNext();
+	}
+	return true;
 }
 
 template<class T>
@@ -118,7 +168,11 @@ inline bool List<T>::clear()
 template<class T>
 inline T& List<T>::operator[](size_t index)
 {
-	// TODO: insertar una instrucción return aquí
+	checkIndex(index);
+	Node<T> aux = this->first;
+	for (auto i = 0; i < index; i++)
+		aux = aux.getNext();
+	return *aux;
 }
 
 template<class T>
