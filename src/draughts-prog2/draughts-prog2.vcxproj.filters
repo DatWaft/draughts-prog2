@@ -16,6 +16,12 @@
     <Filter Include="Archivos de encabezado\Contenedores">
       <UniqueIdentifier>{21087c4d-f8ab-4b34-9fd1-f329299ce645}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Pieces">
+      <UniqueIdentifier>{220c6d23-989d-458f-bf68-059351d0fc3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Pieces">
+      <UniqueIdentifier>{2e0c5b09-cb27-4ec9-be78-13d5feffa74d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -23,6 +29,15 @@
     </ClCompile>
     <ClCompile Include="Exception.cpp">
       <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Piece.cpp">
+      <Filter>Archivos de origen\Pieces</Filter>
+    </ClCompile>
+    <ClCompile Include="Men.cpp">
+      <Filter>Archivos de origen\Pieces</Filter>
+    </ClCompile>
+    <ClCompile Include="King.cpp">
+      <Filter>Archivos de origen\Pieces</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -34,6 +49,15 @@
     </ClInclude>
     <ClInclude Include="Exception.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Piece.h">
+      <Filter>Archivos de encabezado\Pieces</Filter>
+    </ClInclude>
+    <ClInclude Include="Men.h">
+      <Filter>Archivos de encabezado\Pieces</Filter>
+    </ClInclude>
+    <ClInclude Include="King.h">
+      <Filter>Archivos de encabezado\Pieces</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

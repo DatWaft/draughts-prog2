@@ -1,13 +1,15 @@
 #pragma once
 #include <string>
 
+using std::string;
+
 class Exception
 {
 private:
-	std::string _message;
+	string _message;
 public:
-	Exception(std::string);
+	Exception(string);
 	Exception(const char*);
 	virtual ~Exception();
-	virtual std::string what() const throw();
+	virtual string what() const throw();
 };
