@@ -16,10 +16,22 @@
     <Filter Include="Archivos de encabezado\Contenedores">
       <UniqueIdentifier>{21087c4d-f8ab-4b34-9fd1-f329299ce645}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\Pieces">
+    <Filter Include="Archivos de origen\Excepciones">
+      <UniqueIdentifier>{9a3feda2-b8b4-4fa6-bb99-dc197d253000}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Juego">
+      <UniqueIdentifier>{17a68024-484b-456e-a995-705731efcf0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Excepciones">
+      <UniqueIdentifier>{d36779ca-5e65-41c0-9dae-b7f52cc4b9b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Juego">
+      <UniqueIdentifier>{58794f5f-151e-43c1-96f2-921096095261}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Juego\Pieces">
       <UniqueIdentifier>{220c6d23-989d-458f-bf68-059351d0fc3f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de origen\Pieces">
+    <Filter Include="Archivos de origen\Juego\Pieces">
       <UniqueIdentifier>{2e0c5b09-cb27-4ec9-be78-13d5feffa74d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -27,17 +39,20 @@
     <ClCompile Include="main.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="Exception.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="Piece.cpp">
-      <Filter>Archivos de origen\Pieces</Filter>
+      <Filter>Archivos de origen\Juego\Pieces</Filter>
     </ClCompile>
     <ClCompile Include="Men.cpp">
-      <Filter>Archivos de origen\Pieces</Filter>
+      <Filter>Archivos de origen\Juego\Pieces</Filter>
     </ClCompile>
     <ClCompile Include="King.cpp">
-      <Filter>Archivos de origen\Pieces</Filter>
+      <Filter>Archivos de origen\Juego\Pieces</Filter>
+    </ClCompile>
+    <ClCompile Include="Exception.cpp">
+      <Filter>Archivos de origen\Excepciones</Filter>
+    </ClCompile>
+    <ClCompile Include="Position.cpp">
+      <Filter>Archivos de origen\Juego</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -47,17 +62,23 @@
     <ClInclude Include="Node.h">
       <Filter>Archivos de encabezado\Contenedores</Filter>
     </ClInclude>
-    <ClInclude Include="Exception.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="Piece.h">
-      <Filter>Archivos de encabezado\Pieces</Filter>
+      <Filter>Archivos de encabezado\Juego\Pieces</Filter>
     </ClInclude>
     <ClInclude Include="Men.h">
-      <Filter>Archivos de encabezado\Pieces</Filter>
+      <Filter>Archivos de encabezado\Juego\Pieces</Filter>
     </ClInclude>
     <ClInclude Include="King.h">
-      <Filter>Archivos de encabezado\Pieces</Filter>
+      <Filter>Archivos de encabezado\Juego\Pieces</Filter>
+    </ClInclude>
+    <ClInclude Include="Exception.h">
+      <Filter>Archivos de encabezado\Excepciones</Filter>
+    </ClInclude>
+    <ClInclude Include="Position.h">
+      <Filter>Archivos de encabezado\Juego</Filter>
+    </ClInclude>
+    <ClInclude Include="Board.h">
+      <Filter>Archivos de encabezado\Juego</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
