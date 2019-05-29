@@ -40,6 +40,18 @@
     <Filter Include="Archivos de encabezado\Controladores">
       <UniqueIdentifier>{5587fe9f-621f-42b1-b1f1-e0ce4c2f6d5e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Structs">
+      <UniqueIdentifier>{9627d094-6a23-47da-a8b8-c19e38f34243}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Structs">
+      <UniqueIdentifier>{8dafab6d-8dd6-4229-8193-377b2072b168}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Juego\Movimientos">
+      <UniqueIdentifier>{cd18cad9-56a9-4dd7-8a72-33db7d51ca8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Juego\Movimientos">
+      <UniqueIdentifier>{e4939609-b5fc-4acc-88f0-0d5c8677c873}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -71,6 +83,15 @@
     </ClCompile>
     <ClCompile Include="GameController.cpp">
       <Filter>Archivos de origen\Controladores</Filter>
+    </ClCompile>
+    <ClCompile Include="Coord.cpp">
+      <Filter>Archivos de origen\Structs</Filter>
+    </ClCompile>
+    <ClCompile Include="Move.cpp">
+      <Filter>Archivos de origen\Juego\Movimientos</Filter>
+    </ClCompile>
+    <ClCompile Include="Capture.cpp">
+      <Filter>Archivos de origen\Juego\Movimientos</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -106,6 +127,15 @@
     </ClInclude>
     <ClInclude Include="ViewController.h">
       <Filter>Archivos de encabezado\Controladores</Filter>
+    </ClInclude>
+    <ClInclude Include="Coord.h">
+      <Filter>Archivos de encabezado\Structs</Filter>
+    </ClInclude>
+    <ClInclude Include="Move.h">
+      <Filter>Archivos de encabezado\Juego\Movimientos</Filter>
+    </ClInclude>
+    <ClInclude Include="Capture.h">
+      <Filter>Archivos de encabezado\Juego\Movimientos</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
