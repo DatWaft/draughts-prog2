@@ -38,6 +38,6 @@ int main()
 		cout << endl;
 	}
 
-	cout << "[" << b.search(b.getPiece({ 8,1 })).x << "," << b.search(b.getPiece({ 8,1 })).y << "]" << endl;
+	cout << "b.search(b.getPiece(8,1)): " << b.search(b.getPiece(8, 1)) << endl;
  	system("pause");
 }

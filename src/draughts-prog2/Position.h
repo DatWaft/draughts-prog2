@@ -1,11 +1,15 @@
 #pragma once
+#include <iostream>
 #include "Men.h"
 #include "King.h"
+
+using std::ostream;
 
 struct Coord
 {
 	size_t x{ 0 };
 	size_t y{ 0 };
+	friend ostream& operator << (ostream&, const Coord&);
 };
 
 class Position
