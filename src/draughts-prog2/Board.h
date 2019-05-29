@@ -5,7 +5,7 @@ class Board
 {
 public:
 	static const size_t MAX = 8;
-private:
+public:
 	Position*** board;
 public:
 	Board();

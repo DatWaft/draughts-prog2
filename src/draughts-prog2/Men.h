@@ -5,6 +5,6 @@ class Men: public Piece
 {
 	Men(sprite);
 	~Men();
-	bool crowned() const;
+	bool isCrowned() const;
 	operator char() const;
 };

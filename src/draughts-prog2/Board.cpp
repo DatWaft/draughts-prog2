@@ -8,7 +8,7 @@ Board::Board()
 
 	for (size_t y = MAX; y > 0; y--)
 		for (size_t x = 1; x <= MAX; x++)
-			board[y-1][x-1] = new Position(y,x);
+			board[abs(int(y-MAX))][x-1] = new Position(x,y);
 
 	// Algo así va a ser creado a nivel de coordenadas:
 	// 8 [ | | | | | | | ]
@@ -27,6 +27,9 @@ Board::~Board()
 	for (size_t i = 0; i < MAX; i++)
 		for (size_t j = 0; j < MAX; j++)
 			delete board[i][j];
+	for (size_t i = 0; i < MAX; i++)
+		delete[] board[i];
+	delete[] board;
 }
 
 Coord Board::search(Piece* piece)

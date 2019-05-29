@@ -16,9 +16,9 @@ private:
 public:
 	Piece(sprite);
 	virtual ~Piece();
-	virtual bool black() const;
-	virtual bool white() const;
-	virtual bool crowned() const = 0;
+	virtual bool isBlack() const;
+	virtual bool isWhite() const;
+	virtual bool isCrowned() const = 0;
 
 	virtual operator char() const = 0;
 	virtual operator string() const;

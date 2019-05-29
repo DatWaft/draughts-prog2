@@ -4,14 +4,14 @@ King::King(sprite color) : Piece(color) { }
 
 King::~King() { }
 
-bool King::crowned() const
+bool King::isCrowned() const
 {
 	return true;
 }
 
 King::operator char() const
 {
-	if (this->black())
+	if (this->isBlack())
 		return char('N');
 	else
 		return char('B');

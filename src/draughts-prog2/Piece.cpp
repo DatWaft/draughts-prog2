@@ -4,14 +4,14 @@ Piece::Piece(sprite color): color(color) { }
 
 Piece::~Piece() { }
 
-bool Piece::black() const
+bool Piece::isBlack() const
 {
 	return this->color == sprite::black;
 }
 
-bool Piece::white() const
+bool Piece::isWhite() const
 {
-	return !this->black();
+	return !this->isBlack();
 }
 
 Piece::operator string() const

@@ -5,6 +5,6 @@ class King : public Piece
 {
 	King(sprite);
 	~King();
-	bool crowned() const;
+	bool isCrowned() const;
 	operator char() const;
 };
