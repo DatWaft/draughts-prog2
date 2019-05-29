@@ -1,4 +1,5 @@
 #pragma once
+#include "Exception.h"
 #include "Position.h"
 
 class Board
@@ -18,6 +19,9 @@ public:
 
 	void capturePiece(Coord);
 	void capturePiece(size_t, size_t);
+
+	bool upgradePiece(Coord);
+	bool upgradePiece(size_t, size_t);
 
 	Piece* getPiece(Coord);
 	Piece* getPiece(size_t, size_t);

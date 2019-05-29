@@ -3,6 +3,7 @@
 
 class Men: public Piece
 {
+public:
 	Men(sprite);
 	~Men();
 	bool isCrowned() const;

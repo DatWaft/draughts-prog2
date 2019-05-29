@@ -3,6 +3,7 @@
 
 class King : public Piece
 {
+public:
 	King(sprite);
 	~King();
 	bool isCrowned() const;

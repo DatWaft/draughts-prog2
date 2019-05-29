@@ -20,6 +20,8 @@ public:
 	virtual bool isWhite() const;
 	virtual bool isCrowned() const = 0;
 
+	virtual sprite getColor() const;
+
 	virtual operator char() const = 0;
 	virtual operator string() const;
 	virtual string render() const;

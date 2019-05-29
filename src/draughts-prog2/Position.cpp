@@ -8,6 +8,7 @@ Position::Position(Coord coord): coord(coord)
 Position::Position(size_t x, size_t y)
 {
 	this->coord = { x,y };
+	this->piece = nullptr;
 }
 
 Position::~Position()
@@ -19,12 +20,14 @@ Position::~Position()
 
 void Position::setPiece(Piece* piece)
 {
+	if (this->piece)
+		delete this->piece;
 	this->piece = piece;
 }
 
 Piece* Position::getPiece()
 {
-	return piece;
+	return this->piece;
 }
 
 bool Position::darkened()

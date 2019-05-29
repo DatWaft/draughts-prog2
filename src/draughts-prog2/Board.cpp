@@ -42,6 +42,9 @@ Coord Board::search(Piece* piece)
 
 void Board::setPiece(Coord coord, Piece* piece)
 {
+	if (coord.x <= 0 || coord.y <= 0 || coord.x > MAX || coord.y > MAX)
+		throw Exception("Coordenadas invalidas.");
+
 	board[abs(int(coord.y - MAX))][coord.x - 1]->setPiece(piece);
 }
 
@@ -52,11 +55,7 @@ void Board::setPiece(size_t x, size_t y, Piece* piece)
 
 void Board::capturePiece(Coord coord)
 {
-	if (getPiece(coord))
-	{
-		delete getPiece(coord);
-		setPiece(coord, nullptr);
-	}
+	setPiece(coord, nullptr);
 }
 
 void Board::capturePiece(size_t x, size_t y)
@@ -64,8 +63,33 @@ void Board::capturePiece(size_t x, size_t y)
 	capturePiece({ x,y });
 }
 
+bool Board::upgradePiece(Coord coord)
+{
+	if(getPiece(coord) && !getPiece(coord)->isCrowned())
+	{
+		if (getPiece(coord)->isWhite() && coord.y == 8)
+		{
+			setPiece(coord, new King(Piece::white));
+			return true;
+		}
+		else if (getPiece(coord)->isBlack() && coord.y == 1)
+		{
+			setPiece(coord, new King(Piece::black));
+			return true;
+		}
+	}
+	return false;
+}
+
+bool Board::upgradePiece(size_t x, size_t y)
+{
+	return upgradePiece({x,y});
+}
+
 Piece* Board::getPiece(Coord coord)
 {
+	if (coord.x <= 0 || coord.y <= 0 || coord.x > MAX || coord.y > MAX)
+		throw Exception("Coordenadas invalidas.");
 	return board[abs(int(coord.y - MAX))][coord.x - 1]->getPiece();
 }
 
@@ -76,6 +100,8 @@ Piece* Board::getPiece(size_t x, size_t y)
 
 bool Board::darkened(Coord coord)
 {
+	if (coord.x <= 0 || coord.y <= 0 || coord.x > MAX || coord.y > MAX)
+		throw Exception("Coordenadas invalidas.");
 	return board[abs(int(coord.y - MAX))][coord.x - 1]->darkened();
 }
 

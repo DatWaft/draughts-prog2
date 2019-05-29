@@ -14,6 +14,11 @@ bool Piece::isWhite() const
 	return !this->isBlack();
 }
 
+Piece::sprite Piece::getColor() const
+{
+	return this->color;
+}
+
 Piece::operator string() const
 {
 	return string(1, char(*this));
