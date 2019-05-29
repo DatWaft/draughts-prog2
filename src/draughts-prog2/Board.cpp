@@ -38,6 +38,7 @@ Coord Board::search(Piece* piece)
 		for (size_t x = 1; x <= MAX; x++)
 			if (piece == this->getPiece(x, y))
 				return { x,y };
+	return { 0,0 };
 }
 
 void Board::setPiece(Coord coord, Piece* piece)

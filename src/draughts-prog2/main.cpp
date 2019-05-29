@@ -18,10 +18,12 @@ int main()
 	b.setPiece({ 4,4 }, new King(Piece::black));
 	for (size_t i = 0; i < b.MAX; i++)
 	{
+		cout << abs(int(i - 8));
 		for (size_t j = 0; j < b.MAX; j++)
 			cout << "[" << b.getSprite(b.board[i][j]->getX(),b.board[i][j]->getY()) << "]";
 		cout << endl;
 	}
+	cout << "  1  2  3  4  5  6  7  8" << endl;
 
 	system("pause");
 
@@ -33,11 +35,14 @@ int main()
 	system("pause");
 	for (size_t i = 0; i < b.MAX; i++)
 	{
+		cout << abs(int(i - 8));
 		for (size_t j = 0; j < b.MAX; j++)
 			cout << "[" << b.getSprite(b.board[i][j]->getX(), b.board[i][j]->getY()) << "]";
 		cout << endl;
 	}
+	cout << "  1  2  3  4  5  6  7  8" << endl;
 
 	cout << "b.search(b.getPiece(8,1)): " << b.search(b.getPiece(8, 1)) << endl;
+	cout << "b.search(nullptr): " << b.search(nullptr) << endl;
  	system("pause");
 }
