@@ -2,7 +2,7 @@
 
 ostream& operator<<(ostream& out, const Coord& coord)
 {
-	out << "[" << coord.x << "," << coord.y << "]";
+	out << "[" << coord.i << "," << coord.j << "]";
 	return out;
 }
 
@@ -11,9 +11,9 @@ Position::Position(Coord coord): coord(coord)
 	this->piece = nullptr;
 }
 
-Position::Position(size_t x, size_t y)
+Position::Position(size_t i, size_t j)
 {
-	this->coord = { x,y };
+	this->coord = { i,j };
 	this->piece = nullptr;
 }
 
@@ -38,16 +38,16 @@ Piece* Position::getPiece()
 
 bool Position::darkened()
 {
-	if (coord.x % 2 == 0)
+	if (coord.j % 2 == 0)
 	{
-		if (coord.y % 2 == 0)
+		if (coord.i % 2 == 0)
 			return false;
 		else
 			return true;
 	}
 	else
 	{
-		if (coord.y % 2 == 0)
+		if (coord.i % 2 == 0)
 			return true;
 		else
 			return false;
@@ -59,12 +59,12 @@ Coord Position::getCoord()
 	return coord;
 }
 
-size_t Position::getX()
+size_t Position::getI()
 {
-	return coord.x;
+	return coord.i;
 }
 
-size_t Position::getY()
+size_t Position::getJ()
 {
-	return coord.y;
+	return coord.j;
 }

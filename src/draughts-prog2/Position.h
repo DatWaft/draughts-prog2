@@ -7,8 +7,8 @@ using std::ostream;
 
 struct Coord
 {
-	size_t x{ 0 };
-	size_t y{ 0 };
+	size_t i{ 0 };
+	size_t j{ 0 };
 	friend ostream& operator << (ostream&, const Coord&);
 };
 
@@ -27,7 +27,7 @@ public:
 	bool darkened();
 
 	Coord getCoord();
-	size_t getX();
-	size_t getY();
+	size_t getI();
+	size_t getJ();
 };
 
