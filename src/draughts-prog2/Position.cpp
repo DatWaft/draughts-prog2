@@ -12,6 +12,9 @@ Position::Position(size_t x, size_t y)
 
 Position::~Position()
 {
+	if (this->piece)
+		delete this->piece;
+	this->piece = nullptr;
 }
 
 void Position::setPiece(Piece* piece)

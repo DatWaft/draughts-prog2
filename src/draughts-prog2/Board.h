@@ -3,6 +3,8 @@
 
 class Board
 {
+public:
+	static const size_t MAX = 8;
 private:
 	Position*** board;
 public:
@@ -11,8 +13,17 @@ public:
 
 	Coord search(Piece*);
 
+	void setPiece(Coord, Piece*);
+	void setPiece(size_t, size_t, Piece*);
+
+	void capturePiece(Coord);
+	void capturePiece(size_t, size_t);
+
 	Piece* getPiece(Coord);
 	Piece* getPiece(size_t, size_t);
+
+	bool darkened(Coord);
+	bool darkened(size_t, size_t);
 
 	char getSprite(Coord);
 	char getSprite(size_t, size_t);

@@ -54,6 +54,9 @@
     <ClCompile Include="Position.cpp">
       <Filter>Archivos de origen\Juego</Filter>
     </ClCompile>
+    <ClCompile Include="Board.cpp">
+      <Filter>Archivos de origen\Juego</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="List.h">
