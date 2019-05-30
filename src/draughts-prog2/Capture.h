@@ -1,27 +1,23 @@
 #pragma once
 #include "Move.h"
 #include "List.h"
-#include "Piece.h"
+#include "Position.h"
 
 class Capture: public Move
 {
 private:
 	Capture* precursor;
-	List<Capture>* derivations;
-	List<Piece*>* captures;
+	List<Capture> derivations;
+	List<Position*> captures;
 public:
-	Capture(Coord, Coord);
+	Capture();
+	Capture(Coord, Coord, List<Capture>, List<Position*>, Capture* = nullptr);
+	Capture(const Capture&);
+	void operator = (const Capture&);
 	~Capture();
 
-	void setPrecursor(Capture*);
 	Capture* getPrecursor();
-
-	void addCapture(Piece*);
-
-	Capture createDerivation(Coord);
-	Capture searchDerivation(string);
-
-	List<Capture>* getDerivations();
-	List<Piece*>* getCaptures();
+	List<Capture> getDerivations();
+	List<Position*> getCaptures();
 };
 

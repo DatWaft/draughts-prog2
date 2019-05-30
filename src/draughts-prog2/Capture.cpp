@@ -1,21 +1,35 @@
 #include "Capture.h"
 
-Capture::Capture(Coord source, Coord destination): Move(source, destination)
+Capture::Capture(): Move({ 0,0 }, { 0,0 })
 {
 	this->precursor = nullptr;
-	this->derivations = new List<Capture>;
-	this->captures = new List<Piece*>;
+}
+
+Capture::Capture(Coord source, Coord destination, List<Capture> derivations, List<Position*> captures, Capture* precursor): Move(source, destination)
+{
+	this->precursor = precursor;
+	this->derivations = derivations;
+	this->captures = captures;
+}
+
+Capture::Capture(const Capture& move): Move(move.getSource(), move.getDestination())
+{
+	this->precursor = move.precursor;
+	this->derivations = move.derivations;
+	this->captures = move.captures;
+}
+
+void Capture::operator=(const Capture& move)
+{
+	this->source = move.source;
+	this->destination = move.destination;
+	this->precursor = move.precursor;
+	this->derivations = move.derivations;
+	this->captures = move.captures;
 }
 
 Capture::~Capture()
 {
-	delete this->derivations;
-	delete this->captures;
-}
-
-void Capture::setPrecursor(Capture* move)
-{
-	this->precursor = move;
 }
 
 Capture* Capture::getPrecursor()
@@ -23,29 +37,12 @@ Capture* Capture::getPrecursor()
 	return this->precursor;
 }
 
-void Capture::addCapture(Piece* piece)
+List<Capture> Capture::getDerivations()
 {
-	this->captures->insert(piece);
+	return this->derivations;
 }
 
-Capture Capture::createDerivation(Coord destination)
+List<Position*> Capture::getCaptures()
 {
-	Capture aux = Capture(this->destination, destination);
-	this->derivations->insert(aux);
-	return aux;
-}
-
-Capture Capture::searchDerivation(string)
-{
-	return ;
-}
-
-List<Capture>* Capture::getDerivations()
-{
-	return nullptr;
-}
-
-List<Piece*>* Capture::getCaptures()
-{
-	return nullptr;
+	return this->captures;
 }
