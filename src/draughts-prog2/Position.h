@@ -1,16 +1,7 @@
 #pragma once
-#include <iostream>
+#include "Coord.h"
 #include "Men.h"
 #include "King.h"
-
-using std::ostream;
-
-struct Coord
-{
-	size_t i{ 0 };
-	size_t j{ 0 };
-	friend ostream& operator << (ostream&, const Coord&);
-};
 
 class Position
 {

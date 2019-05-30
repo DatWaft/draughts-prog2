@@ -1,11 +1,5 @@
 #include "Position.h"
 
-ostream& operator<<(ostream& out, const Coord& coord)
-{
-	out << "[" << coord.i << "," << coord.j << "]";
-	return out;
-}
-
 Position::Position(Coord coord): coord(coord) 
 {
 	this->piece = nullptr;
