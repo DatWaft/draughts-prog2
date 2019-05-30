@@ -5,6 +5,11 @@ Capture::Capture(): Move({ 0,0 }, { 0,0 })
 	this->precursor = nullptr;
 }
 
+Capture::Capture(Coord source, Coord destination, Capture* precursor): Move(source, destination)
+{
+	this->precursor = precursor;
+}
+
 Capture::Capture(Coord source, Coord destination, List<Capture> derivations, List<Position*> captures, Capture* precursor): Move(source, destination)
 {
 	this->precursor = precursor;
@@ -42,7 +47,17 @@ List<Capture> Capture::getDerivations()
 	return this->derivations;
 }
 
+void Capture::setDerivations(List<Capture> derivations)
+{
+	this->derivations = derivations;
+}
+
 List<Position*> Capture::getCaptures()
 {
 	return this->captures;
+}
+
+void Capture::setCaptures(List<Position*> captures)
+{
+	this->captures = captures;
 }

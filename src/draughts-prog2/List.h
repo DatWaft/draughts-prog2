@@ -15,6 +15,8 @@ public:
 	~List();
 	void operator = (const List&);
 
+	void append(const List<T>&);
+
 	size_t getSize() const;
 	bool empty() const;
 
@@ -61,6 +63,13 @@ template<class T>
 inline void List<T>::operator=(const List& list)
 {
 	this->clear();
+	for (size_t i = 0; i < list.getSize(); i++)
+		this->insert(list[i]);
+}
+
+template<class T>
+inline void List<T>::append(const List<T>& list)
+{
 	for (size_t i = 0; i < list.getSize(); i++)
 		this->insert(list[i]);
 }

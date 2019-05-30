@@ -134,6 +134,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Men.cpp" />
     <ClCompile Include="Move.cpp" />
+    <ClCompile Include="MovementController.cpp" />
     <ClCompile Include="Piece.cpp" />
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="ViewController.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="List.h" />
     <ClInclude Include="Men.h" />
     <ClInclude Include="Move.h" />
+    <ClInclude Include="MovementController.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Piece.h" />
     <ClInclude Include="Position.h" />
