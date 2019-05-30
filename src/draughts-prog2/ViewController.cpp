@@ -21,7 +21,7 @@ void ViewController::displayBoard(Board* board)
 	k << "*"<< string(27,'-')<<"*"<<endl;
 	for (size_t i = 1; i < 9; i++)
 	{
-		k << "| " << i;
+		k << "| " << abs(int(i - 8));
 		for (size_t j = 1; j < 9 ; j++)
 			k << "[" << board->getSprite(i, j) << "]";
 		k << " |";
@@ -59,10 +59,10 @@ void ViewController::displayMainMenu()
 	stringstream menuLine;
 	
 	string aux;
-	menuLine << "1. Opcion 1234" << endl;
-	menuLine << "2. Opcion 2" << endl;
-	menuLine << "3. Opcion 3" << endl;
-	menuLine << "4. Opcion 4" << endl;
+	menuLine << "1. Jugar modo aleatorio" << endl;
+	menuLine << "2. Jugar modo hardcore" << endl;
+	menuLine << "3. Construir juego" << endl;
+	menuLine << "4. Salir" << endl;
 
 	print(alingWidthAndLength(menuLine.str()));
 	

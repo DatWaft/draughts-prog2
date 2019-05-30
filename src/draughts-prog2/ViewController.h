@@ -2,6 +2,7 @@
 #include "ConsoleController.h"
 #include "Board.h"
 
+#include <math.h>
 #include <iostream>
 #include <sstream>
 
