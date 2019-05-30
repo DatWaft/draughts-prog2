@@ -1,6 +1,6 @@
 #include "Piece.h"
 
-Piece::Piece(sprite color): color(color) { }
+Piece::Piece(sprite color, Position* position): color(color), position(position) { }
 
 Piece::~Piece() { }
 

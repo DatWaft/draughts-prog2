@@ -4,7 +4,7 @@
 class Men: public Piece
 {
 public:
-	Men(sprite);
+	Men(sprite, Position*);
 	~Men();
 	bool isCrowned() const;
 	operator char() const;

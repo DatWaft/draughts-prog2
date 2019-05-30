@@ -3,6 +3,8 @@
 #include "Men.h"
 #include "King.h"
 
+class Piece;
+
 class Position
 {
 private:
