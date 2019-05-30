@@ -1,5 +1,6 @@
 #pragma once
 #include "ConsoleController.h"
+#include "Board.h"
 
 #include <iostream>
 #include <sstream>
@@ -19,12 +20,17 @@ private:
 public:
 	ViewController();
 	~ViewController();
-	void positionBoard(string);
+
+	void displayBoard(Board*);
 	void print(string);
 	void displayMainMenu();
+
+	size_t amountOfStrings(string);
 	size_t getHigherSize(string);
+
 	string alingWidthAndLength(string);
 	string centerString(string);
+	
 	
 
 };

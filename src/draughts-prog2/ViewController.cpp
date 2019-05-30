@@ -12,17 +12,20 @@ ViewController::~ViewController()
 	delete consoleControl;
 }
 
-void ViewController::positionBoard(string boardString)
+void ViewController::displayBoard(Board* board)
 {
-	stringstream x(boardString);
+	
 	stringstream k;
-
-	string aux, aux2;
+	
+	string aux; // AUX2
 	k << "*"<< string(27,'-')<<"*"<<endl;
-	for (size_t i = 0; i < 8; i++)
+	for (size_t i = 1; i < 9; i++)
 	{
-		getline(x, aux, '\n');
-		k << "| "<< i<< aux <<" |"<< endl;
+		k << "| " << i;
+		for (size_t j = 1; j < 9 ; j++)
+			k << "[" << board->getSprite(i, j) << "]";
+		k << " |";
+		k << endl;
 	}
 	k <<"|   1  2  3  4  5  6  7  8  |" << endl;
 	k << "*" << string(27, '-') << "*" << endl;
@@ -65,6 +68,18 @@ void ViewController::displayMainMenu()
 	
 }
 
+size_t ViewController::amountOfStrings(string s)
+{
+	stringstream x(s);
+	string aux;
+	size_t contador = 0;
+	while (getline(x,aux))
+	{
+		contador += 1;
+	};
+	return contador;
+}
+
 size_t ViewController::getHigherSize(string textLine)
 {
 	stringstream x(textLine);
@@ -83,14 +98,17 @@ string ViewController::alingWidthAndLength(string textToAline)
 	stringstream x(textToAline);
 	stringstream r;
 	string aux;
-	size_t margen = (((120 - getHigherSize(x.str())) / 2));
+
+	size_t margenx = (((120 - getHigherSize(x.str())) / 2));
+	size_t margeny = ((30 - amountOfStrings(x.str())) / 2);
+
+	r << ESC"[" << margeny << "B";
 
 	while (getline(x, aux))
 	{
-		r << string(margen, ' ') + aux << endl;
+		r << string(margenx, ' ') + aux << endl;
 	}
-	// falta alinear largo
-
+	
 	return r.str();
 }
 
