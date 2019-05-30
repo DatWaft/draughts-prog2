@@ -93,6 +93,9 @@
     <ClCompile Include="Capture.cpp">
       <Filter>Archivos de origen\Juego\Movimientos</Filter>
     </ClCompile>
+    <ClCompile Include="InputController.cpp">
+      <Filter>Archivos de origen\Controladores</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="List.h">
@@ -136,6 +139,9 @@
     </ClInclude>
     <ClInclude Include="Capture.h">
       <Filter>Archivos de encabezado\Juego\Movimientos</Filter>
+    </ClInclude>
+    <ClInclude Include="InputController.h">
+      <Filter>Archivos de encabezado\Controladores</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
