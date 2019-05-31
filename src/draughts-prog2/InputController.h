@@ -8,7 +8,7 @@ class InputController
 
 public: 
 	InputController();
-	~InputController();
+	virtual ~InputController();
 
 	void validation();
 	string getString();
