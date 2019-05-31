@@ -19,10 +19,10 @@ void ViewController::displayBoard(Board* board)
 	
 	string aux; // AUX2
 	k << "*"<< string(27,'-')<<"*"<<endl;
-	for (size_t i = 1; i < 9; i++)
+	for (int i = 1; i < 9; i++)
 	{
 		k << "| " << abs(int(i - 8));
-		for (size_t j = 1; j < 9 ; j++)
+		for (int j = 1; j < 9 ; j++)
 			k << "[" << board->getSprite(i, j) << "]";
 		k << " |";
 		k << endl;

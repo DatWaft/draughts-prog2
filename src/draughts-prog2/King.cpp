@@ -1,6 +1,6 @@
 #include "King.h"
 
-King::King(sprite color, Position* position) : Piece(color, position) { }
+King::King(sprite color, Coord coord): Piece(color, coord) { }
 
 King::~King() { }
 

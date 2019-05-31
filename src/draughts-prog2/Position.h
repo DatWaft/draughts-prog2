@@ -3,8 +3,6 @@
 #include "Men.h"
 #include "King.h"
 
-class Piece;
-
 class Position
 {
 private:
@@ -12,15 +10,15 @@ private:
 	Piece* piece;
 public:
 	Position(Coord);
-	Position(size_t, size_t);
+	Position(int, int);
 	~Position();
 
-	void setPiece(Piece*);
+	Piece* setPiece(Piece*);
 	Piece* getPiece();
 	bool darkened();
 
 	Coord getCoord();
-	size_t getI();
-	size_t getJ();
+	int getI();
+	int getJ();
 };
 

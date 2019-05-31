@@ -11,6 +11,22 @@ MovementController::~MovementController()
 
 List<Move> MovementController::getMovimientos(Men* piece)
 {
+	List<Move> v;
+	// MODIFICADORES:
+	const Coord UP = { -1, 0 };
+	const Coord DOWN = { 1, 0 };
+	const Coord LEFT = { 0, -1 };
+	const Coord RIGHT = { 0, 1 };
+	// --------------
+	if (piece->isBlack()) // Si es una ficha no coronada negra, sus movimientos todos son hacia abajo.
+	{
+
+	}
+	else	// Si es una ficha no coronada blanca, sus movimientos todos son hacia arriba.
+	{
+
+	}
+
 	return List<Move>();
 }
 

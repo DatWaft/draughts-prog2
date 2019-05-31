@@ -1,12 +1,17 @@
 #pragma once
 #include <iostream>
+#include <string>
 
 using std::ostream;
+using std::string;
 
 struct Coord
 {
-	size_t i{ 0 };
-	size_t j{ 0 };
+	int i{ 0 };
+	int j{ 0 };
+
+	operator bool() const;
+	operator string() const;
 
 	void operator =(const Coord&);
 	bool operator ==(const Coord&);

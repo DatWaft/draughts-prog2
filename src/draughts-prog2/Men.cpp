@@ -1,6 +1,6 @@
 #include "Men.h"
 
-Men::Men(sprite color, Position* position) : Piece(color, position) { }
+Men::Men(sprite color, Coord coord): Piece(color, coord) { }
 
 Men::~Men() { }
 

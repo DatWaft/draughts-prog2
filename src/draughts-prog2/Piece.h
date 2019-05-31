@@ -1,10 +1,8 @@
 #pragma once
 #include <string>
-#include "Position.h"
+#include "Coord.h"
 
 using std::string;
-
-class Position;
 
 class Piece
 {
@@ -16,15 +14,17 @@ public:
 	};
 private:
 	sprite color;
-	Position* position;
+	Coord position;
 public:
-	Piece(sprite, Position*);
+	Piece(sprite, Coord);
 	virtual ~Piece();
 	virtual bool isBlack() const;
 	virtual bool isWhite() const;
 	virtual bool isCrowned() const = 0;
 
+	void setPosition(Coord);
 	virtual sprite getColor() const;
+	Coord getPosition() const;
 
 	virtual operator char() const = 0;
 	virtual operator string() const;

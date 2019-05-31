@@ -5,7 +5,7 @@ Position::Position(Coord coord): coord(coord)
 	this->piece = nullptr;
 }
 
-Position::Position(size_t i, size_t j)
+Position::Position(int i, int j)
 {
 	this->coord = { i,j };
 	this->piece = nullptr;
@@ -18,11 +18,12 @@ Position::~Position()
 	this->piece = nullptr;
 }
 
-void Position::setPiece(Piece* piece)
+Piece* Position::setPiece(Piece* piece)
 {
 	if (this->piece)
 		delete this->piece;
 	this->piece = piece;
+	return piece;
 }
 
 Piece* Position::getPiece()
@@ -53,12 +54,12 @@ Coord Position::getCoord()
 	return coord;
 }
 
-size_t Position::getI()
+int Position::getI()
 {
 	return coord.i;
 }
 
-size_t Position::getJ()
+int Position::getJ()
 {
 	return coord.j;
 }

@@ -3,11 +3,11 @@
 Board::Board()
 {
 	board = new Position** [MAX];
-	for (size_t i = 0; i < MAX; i++)
+	for (int i = 0; i < MAX; i++)
 		board[i] = new Position* [MAX];
 
-	for (size_t i = MAX; i > 0; i--)
-		for (size_t j = 1; j <= MAX; j++)
+	for (int i = MAX; i > 0; i--)
+		for (int j = 1; j <= MAX; j++)
 			board[abs(int(i-MAX))][j-1] = new Position(i,j);
 
 	// Algo así va a ser creado a nivel de coordenadas:
@@ -24,18 +24,18 @@ Board::Board()
 
 Board::~Board()
 {
-	for (size_t i = 0; i < MAX; i++)
-		for (size_t j = 0; j < MAX; j++)
+	for (int i = 0; i < MAX; i++)
+		for (int j = 0; j < MAX; j++)
 			delete board[i][j];
-	for (size_t i = 0; i < MAX; i++)
+	for (int i = 0; i < MAX; i++)
 		delete[] board[i];
 	delete[] board;
 }
 
 Coord Board::search(Piece* piece)
 {
-	for (size_t i = MAX; i > 0; i--)
-		for (size_t j = 1; j <= MAX; j++)
+	for (int i = MAX; i > 0; i--)
+		for (int j = 1; j <= MAX; j++)
 			if (piece == this->getPiece(i, j))
 				return { i,j };
 	return { 0,0 };
@@ -46,10 +46,10 @@ void Board::setPiece(Coord coord, Piece* piece)
 	if (coord.i <= 0 || coord.j <= 0 || coord.i > MAX || coord.j > MAX)
 		throw Exception("Coordenadas invalidas.");
 
-	board[abs(int(coord.i - MAX))][coord.j - 1]->setPiece(piece);
+	board[abs(int(coord.i - MAX))][coord.j - 1]->setPiece(piece)->setPosition(coord);
 }
 
-void Board::setPiece(size_t i, size_t j, Piece* piece)
+void Board::setPiece(int i, int j, Piece* piece)
 {
 	this->setPiece({ i,j }, piece);
 }
@@ -59,7 +59,7 @@ void Board::capturePiece(Coord coord)
 	setPiece(coord, nullptr);
 }
 
-void Board::capturePiece(size_t i, size_t j)
+void Board::capturePiece(int i, int j)
 {
 	capturePiece({ i,j });
 }
@@ -70,19 +70,19 @@ bool Board::upgradePiece(Coord coord)
 	{
 		if (getPiece(coord)->isWhite() && coord.i == 8)
 		{
-			setPiece(coord, new King(Piece::white));
+			setPiece(coord, new King(Piece::white, coord));
 			return true;
 		}
 		else if (getPiece(coord)->isBlack() && coord.i == 1)
 		{
-			setPiece(coord, new King(Piece::black));
+			setPiece(coord, new King(Piece::black, coord));
 			return true;
 		}
 	}
 	return false;
 }
 
-bool Board::upgradePiece(size_t i, size_t j)
+bool Board::upgradePiece(int i, int j)
 {
 	return upgradePiece({i,j});
 }
@@ -94,7 +94,7 @@ Piece* Board::getPiece(Coord coord)
 	return board[abs(int(coord.i - MAX))][coord.j - 1]->getPiece();
 }
 
-Piece* Board::getPiece(size_t i, size_t j)
+Piece* Board::getPiece(int i, int j)
 {
 	return this->getPiece({i,j});
 }
@@ -106,7 +106,7 @@ bool Board::darkened(Coord coord)
 	return board[abs(int(coord.i - MAX))][coord.j - 1]->darkened();
 }
 
-bool Board::darkened(size_t i, size_t j)
+bool Board::darkened(int i, int j)
 {
 	return this->darkened({ i,j });
 }
@@ -118,7 +118,17 @@ char Board::getSprite(Coord coord)
 	return char(' ');
 }
 
-char Board::getSprite(size_t i, size_t j)
+char Board::getSprite(int i, int j)
 {
 	return this->getSprite({i,j});
+}
+
+Position* Board::getPosition(Coord coord)
+{
+	return board[abs(int(coord.i - MAX))][coord.j - 1];
+}
+
+Position* Board::getPosition(int i, int j)
+{
+	return getPosition({i,j});
 }

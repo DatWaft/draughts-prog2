@@ -4,7 +4,7 @@
 class King : public Piece
 {
 public:
-	King(sprite, Position*);
+	King(sprite, Coord = {});
 	~King();
 	bool isCrowned() const;
 	operator char() const;
