@@ -1,5 +1,15 @@
 #include "Coord.h"
 
+Coord::operator bool() const
+{
+	return !(this->i == 0 && this->j == 0);
+}
+
+Coord::operator string() const
+{
+	return to_string(i) + to_string(j);
+}
+
 void Coord::operator =(const Coord& pos)
 {
 	this->i = pos.i;

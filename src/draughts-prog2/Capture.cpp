@@ -1,27 +1,29 @@
 #include "Capture.h"
 
-Capture::Capture(): Move({ 0,0 }, { 0,0 })
+Capture::Capture()
 {
 	this->precursor = nullptr;
+	this->subsequent = nullptr;
+}
+
+Capture::Capture(Coord source, Coord destination): Move(source, destination)
+{
+	this->precursor = nullptr;
+	this->subsequent = nullptr;
 }
 
 Capture::Capture(Coord source, Coord destination, Capture* precursor): Move(source, destination)
 {
 	this->precursor = precursor;
+	this->subsequent = nullptr;
 }
 
-Capture::Capture(Coord source, Coord destination, List<Capture> derivations, List<Position*> captures, Capture* precursor): Move(source, destination)
+Capture::Capture(const Capture& move)
 {
-	this->precursor = precursor;
-	this->derivations = derivations;
-	this->captures = captures;
-}
-
-Capture::Capture(const Capture& move): Move(move.getSource(), move.getDestination())
-{
+	this->source = move.source;
+	this->destination = move.destination;
 	this->precursor = move.precursor;
-	this->derivations = move.derivations;
-	this->captures = move.captures;
+	this->subsequent = move.subsequent;
 }
 
 void Capture::operator=(const Capture& move)
@@ -29,35 +31,35 @@ void Capture::operator=(const Capture& move)
 	this->source = move.source;
 	this->destination = move.destination;
 	this->precursor = move.precursor;
-	this->derivations = move.derivations;
-	this->captures = move.captures;
+	this->subsequent = move.subsequent;
 }
 
 Capture::~Capture()
 {
+	if (this->subsequent)
+		delete this->subsequent;
 }
 
 Capture* Capture::getPrecursor()
 {
-	return this->precursor;
+	return precursor;
 }
 
-List<Capture> Capture::getDerivations()
+Capture* Capture::getSubsequent()
 {
-	return this->derivations;
+	return subsequent;
 }
 
-void Capture::setDerivations(List<Capture> derivations)
+Capture* Capture::createSubsequent(Coord destination)
 {
-	this->derivations = derivations;
+	if (!this->subsequent)
+		this->subsequent = new Capture(this->destination, destination, this);
+	return this->subsequent;
 }
 
-List<Position*> Capture::getCaptures()
+Capture::operator string()
 {
-	return this->captures;
-}
-
-void Capture::setCaptures(List<Position*> captures)
-{
-	this->captures = captures;
+	if (!this->subsequent)
+		return string(this->source) + " " + string(this->destination);
+	return string(this->source) + " " + string(*this->subsequent);
 }

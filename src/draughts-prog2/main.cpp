@@ -32,6 +32,13 @@ int main()
 		cout << endl;
 	}
 
+	Capture c({1,1}, {2,2});
+	c.createSubsequent({ 3,3 })->createSubsequent({ 4,4 })->createSubsequent({ 5,5 });
+
+	cout << "c: '" << string(c) << "'" << endl;
+	cout << "bool(Coord(1,1)): " << (bool(Coord{1,1}) ? "True" : "False") << endl;
+
+
 	delete board;
 	system("pause");
 }

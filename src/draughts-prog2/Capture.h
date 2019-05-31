@@ -7,20 +7,20 @@ class Capture: public Move
 {
 private:
 	Capture* precursor;
-	List<Capture> derivations;
-	List<Position*> captures;
+	Capture* subsequent;
+private:
+	Capture(Coord, Coord, Capture*);
 public:
 	Capture();
-	Capture(Coord, Coord, Capture* = nullptr);
-	Capture(Coord, Coord, List<Capture>, List<Position*>, Capture* = nullptr);
+	Capture(Coord, Coord);
 	Capture(const Capture&);
 	void operator = (const Capture&);
 	~Capture();
 
 	Capture* getPrecursor();
-	List<Capture> getDerivations();
-	void setDerivations(List<Capture>);
-	List<Position*> getCaptures();
-	void setCaptures(List<Position*>);
+	Capture* getSubsequent();
+	Capture* createSubsequent(Coord);
+
+	operator string();
 };
 
