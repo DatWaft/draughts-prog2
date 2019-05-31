@@ -12,7 +12,7 @@ class ConsoleController
 {
 public:
 	ConsoleController();
-	~ConsoleController();
+	virtual ~ConsoleController();
 	void unicode();
 	void virtualTerminal();
 	void showTitle(string s);

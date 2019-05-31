@@ -20,7 +20,7 @@ private:
 	ConsoleController* consoleControl;
 public:
 	ViewController();
-	~ViewController();
+	virtual ~ViewController();
 
 	void displayBoard(Board*);
 	void print(string);
