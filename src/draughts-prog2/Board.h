@@ -14,6 +14,8 @@ public:
 
 	Coord search(Piece*);
 
+	bool movePiece(Coord, Coord);
+
 	void setPiece(Coord, Piece*);
 	void setPiece(int, int, Piece*);
 

@@ -41,12 +41,22 @@ Coord Board::search(Piece* piece)
 	return { 0,0 };
 }
 
+bool Board::movePiece(Coord source, Coord destination)
+{
+	if(!getPiece(source) || getPiece(destination))
+		return false;
+	setPiece(destination, getPiece(source));
+	setPiece(source, nullptr);
+	return true;
+
+}
+
 void Board::setPiece(Coord coord, Piece* piece)
 {
 	if (coord.i <= 0 || coord.j <= 0 || coord.i > MAX || coord.j > MAX)
 		throw Exception("Coordenadas invalidas.");
 
-	board[abs(int(coord.i - MAX))][coord.j - 1]->setPiece(piece)->setPosition(coord);
+	board[abs(int(coord.i - MAX))][coord.j - 1]->setPiece(piece);
 }
 
 void Board::setPiece(int i, int j, Piece* piece)

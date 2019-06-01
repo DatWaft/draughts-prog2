@@ -4,6 +4,8 @@
 #include "Men.h"
 #include "King.h"
 
+using std::stoi;
+
 class MovementController
 {
 private:
@@ -11,9 +13,12 @@ private:
 public:
 	MovementController(Board*);
 	~MovementController();
-	List<Move> getMovimientos(Men*);
-	List<Move> getMovimientos(King*);
-	List<Capture> getCaptures(Men*);
-	List<Capture> getCaptures(King*);
+	bool move(string, Piece::sprite);
+	Move str_to_move(string);
+	bool move(Move, Piece::sprite);
+	List<Move> getMovements();
+	List<Move> getMovements(Piece::sprite);
+	List<Move> getMovements(Piece*);
+	List<Move> getMovements(Men*);
 };
 

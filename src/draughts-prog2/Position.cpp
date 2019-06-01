@@ -20,9 +20,9 @@ Position::~Position()
 
 Piece* Position::setPiece(Piece* piece)
 {
-	if (this->piece)
-		delete this->piece;
 	this->piece = piece;
+	if(this->piece)
+		this->piece->setPosition(this->coord);
 	return piece;
 }
 

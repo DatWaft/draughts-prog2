@@ -28,7 +28,7 @@ Coord Move::getDestination() const
 
 Move::operator bool() const
 {
-	return !(source.i == 0 && source.j == 0 && destination.i == 0 && destination.j == 0);
+	return bool(source) && bool(destination);
 }
 
 Move::operator string() const
