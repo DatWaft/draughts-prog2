@@ -17,6 +17,8 @@ public:
 
 	void append(const List<T>&);
 
+	bool inside(T);
+
 	size_t getSize() const;
 	bool empty() const;
 
@@ -72,6 +74,15 @@ inline void List<T>::append(const List<T>& list)
 {
 	for (size_t i = 0; i < list.getSize(); i++)
 		this->insert(list[i]);
+}
+
+template<class T>
+inline bool List<T>::inside(T object)
+{
+	for (size_t i = 0; i < size; i++)
+		if (this->operator[](i) == object)
+			return true;
+	return false;
 }
 
 template<class T>

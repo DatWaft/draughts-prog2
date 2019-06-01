@@ -2,7 +2,7 @@
 
 Coord::operator bool() const
 {
-	return !(this->i == 0 && this->j == 0);
+	return i <= 8 && i > 0 && j <= 8 && j > 0;
 }
 
 Coord::operator string() const

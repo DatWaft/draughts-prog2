@@ -4,15 +4,22 @@
 
 using namespace std;
 
-#include "Node.h"
-#include "List.h"
-#include "Board.h"
-#include "Move.h"
-#include "Capture.h"
+#include "MovementController.h"
+
+template<class T>
+string showList(List<T> v, string title)
+{
+	stringstream s;
+	s << title << ": ";
+	for (size_t i = 0; i < v.getSize(); i++)
+		s << "[" << string(v[i]) << "]"; s << endl;
+	return s.str();
+}
 
 int main()
 {
 	Board* board = new Board;
+	MovementController mc (board);
 
 	for (int i = 8; i >= 6; i--)
 		for (int j = 1; j <= board->MAX; j++)
@@ -25,19 +32,31 @@ int main()
 
 	for (int i = board->MAX; i > 0; i--)
 	{
+		cout << i << " ";
 		for (int j = 1; j <= board->MAX; j++)
 		{
 			cout << "[" << board->getSprite({ i,j }) << "]";
 		}
 		cout << endl;
 	}
+	cout << "   1  2  3  4  5  6  7  8" << endl;
 
-	Capture c({1,1}, {2,2});
-	c.createSubsequent({ 3,3 })->createSubsequent({ 4,4 })->createSubsequent({ 5,5 });
+	cout << showList<Move>(mc.getMovements(Piece::white), "w");
+	cout << showList<Move>(mc.getMovements(Piece::black), "b");
 
-	cout << "c: '" << string(c) << "'" << endl;
-	cout << "bool(Coord(1,1)): " << (bool(Coord{1,1}) ? "True" : "False") << endl;
+	cout << endl;
+	cout << "Move 61 52: " << (mc.move("61 52", Piece::black) ? "True" : "False") << endl;
 
+	for (int i = board->MAX; i > 0; i--)
+	{
+		cout << i << " ";
+		for (int j = 1; j <= board->MAX; j++)
+		{
+			cout << "[" << board->getSprite({ i,j }) << "]";
+		}
+		cout << endl;
+	}
+	cout << "   1  2  3  4  5  6  7  8" << endl;
 
 	delete board;
 	system("pause");
