@@ -30,6 +30,9 @@ public:
 
 	void clear();
 
+	T& getItem(size_t);
+	T& getItem(size_t) const;
+
 	T& operator [] (size_t);
 	T& operator [] (size_t) const;
 private:
@@ -80,7 +83,7 @@ template<class T>
 inline bool List<T>::inside(T object)
 {
 	for (size_t i = 0; i < size; i++)
-		if (this->operator[](i) == object)
+		if (getItem(i) == object)
 			return true;
 	return false;
 }
@@ -194,6 +197,26 @@ template<class T>
 inline void List<T>::clear()
 {
 	while (this->erase());
+}
+
+template<class T>
+inline T& List<T>::getItem(size_t index)
+{
+	checkIndex(index);
+	Node<T>* aux = this->first;
+	for (size_t i = 0; i < index; i++)
+		aux = aux->getNext();
+	return aux->getData();
+}
+
+template<class T>
+inline T& List<T>::getItem(size_t index) const
+{
+	checkIndex(index);
+	Node<T>* aux = this->first;
+	for (size_t i = 0; i < index; i++)
+		aux = aux->getNext();
+	return aux->getData();
 }
 
 template<class T>

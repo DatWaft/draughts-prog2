@@ -16,6 +16,23 @@ Move::~Move()
 {
 }
 
+Move::Move(const Move& move)
+{
+	this->source = move.source;
+	this->destination = move.destination;
+}
+
+void Move::operator=(const Move& move)
+{
+	this->source = move.source;
+	this->destination = move.destination;
+}
+
+bool Move::operator==(const Move& move)
+{
+	return this->source == move.source && this->destination == move.destination;
+}
+
 Coord Move::getSource() const
 {
 	return this->source;

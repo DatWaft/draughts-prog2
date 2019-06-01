@@ -16,7 +16,6 @@ public:
 	bool move(string, Piece::sprite);
 	Move str_to_move(string);
 	bool move(Move, Piece::sprite);
-	List<Move> getMovements();
 	List<Move> getMovements(Piece::sprite);
 	List<Move> getMovements(Piece*);
 	List<Move> getMovements(Men*);

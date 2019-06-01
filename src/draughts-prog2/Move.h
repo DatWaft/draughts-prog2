@@ -14,6 +14,9 @@ public:
 	Move();
 	Move(Coord, Coord);
 	virtual ~Move();
+	Move(const Move&);
+	void operator = (const Move&);
+	bool operator == (const Move&);
 
 	virtual Coord getSource() const;
 	virtual Coord getDestination() const;

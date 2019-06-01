@@ -21,7 +21,14 @@ Move MovementController::str_to_move(string str)
 {
 	if (str.length() < 5)
 		return Move();
-	return Move({ stoi(string(1,str[0])), stoi(string(1,str[1])) }, { stoi(string(1,str[3])), stoi(string(1,str[4])) });
+	try
+	{
+		return Move({ stoi(string(1,str[0])), stoi(string(1,str[1])) }, { stoi(string(1,str[3])), stoi(string(1,str[4])) });
+	}
+	catch (...)
+	{
+		return Move();
+	}
 }
 
 bool MovementController::move(Move move, Piece::sprite color)
@@ -33,13 +40,6 @@ bool MovementController::move(Move move, Piece::sprite color)
 		return true;
 	}
 	return false;
-}
-
-List<Move> MovementController::getMovements()
-{
-	auto moves = getMovements(Piece::black);
-	moves.append(getMovements(Piece::white));
-	return moves;
 }
 
 List<Move> MovementController::getMovements(Piece::sprite color)
