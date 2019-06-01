@@ -5,6 +5,7 @@
 using namespace std;
 
 #include "MovementController.h"
+#include "ViewController.h"
 
 template<class T>
 string showList(List<T> v, string title)
@@ -20,6 +21,7 @@ int main()
 {
 	Board* board = new Board;
 	MovementController mc (board);
+	ViewController v;
 
 	for (int i = 8; i >= 6; i--)
 		for (int j = 1; j <= board->MAX; j++)
@@ -30,16 +32,7 @@ int main()
 			if (board->darkened({ i,j }))
 				board->setPiece({ i,j }, new Men(Piece::white));
 
-	for (int i = board->MAX; i > 0; i--)
-	{
-		cout << i << " ";
-		for (int j = 1; j <= board->MAX; j++)
-		{
-			cout << "[" << board->getSprite({ i,j }) << "]";
-		}
-		cout << endl;
-	}
-	cout << "   1  2  3  4  5  6  7  8" << endl;
+	v.displayBoard(board);
 
 	cout << showList<Move>(mc.getMovements(Piece::white), "w");
 	cout << showList<Move>(mc.getMovements(Piece::black), "b");
@@ -47,16 +40,7 @@ int main()
 	cout << endl;
 	cout << "Move 61 52: " << (mc.move("61 52", Piece::black) ? "True" : "False") << endl;
 
-	for (int i = board->MAX; i > 0; i--)
-	{
-		cout << i << " ";
-		for (int j = 1; j <= board->MAX; j++)
-		{
-			cout << "[" << board->getSprite({ i,j }) << "]";
-		}
-		cout << endl;
-	}
-	cout << "   1  2  3  4  5  6  7  8" << endl;
+	v.displayBoard(board);
 
 	delete board;
 	system("pause");
