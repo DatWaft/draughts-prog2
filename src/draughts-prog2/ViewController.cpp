@@ -17,11 +17,11 @@ void ViewController::displayBoard(Board* board)
 	
 	stringstream k;
 	
-	string aux; // AUX2
+	string aux; 
 	k << "*"<< string(27,'-')<<"*"<<endl;
-	for (int i = 1; i < 9; i++)
+	for (int i = 8; i > 0; i--)
 	{
-		k << "| " << abs(int(i - 8));
+		k << "| " << i;
 		for (int j = 1; j < 9 ; j++)
 			k << "[" << board->getSprite(i, j) << "]";
 		k << " |";
