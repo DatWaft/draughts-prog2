@@ -1,4 +1,6 @@
 #include "InputController.h"
+#include <string>
+
 
 InputController::InputController()
 {
@@ -15,16 +17,29 @@ void InputController::validation()
 	cin.ignore();
 }
 
+
 string InputController::getString()
 {
 	string data;
-		while (!(cin >> data))
+		while (!(getline(cin,data)))
 		{
-			cout << "Reingrese el dato" << endl;
-			cin.clear();
-			cin.ignore();
+			validation();
 		}
 		return data;
+}
+
+string InputController::getMovementInput()
+{
+
+	string data;
+	getline(cin, data);
+		while(!verifyMovementInput(data))
+		{	
+			fflush(stdin);
+			getline(cin, data);
+		}
+	
+	return data;
 }
 
 int InputController::getInt(int a, int b)
@@ -39,8 +54,28 @@ int InputController::getInt(int a, int b)
 	else
 		while (!(cin >> data || data > a || data < b))
 		{
+			
 			validation();
 		}
 
 	return data;
+}
+
+bool InputController::verifyMovementInput(string move)
+{
+	int counter = 0;
+	;
+
+	for (size_t i = 0; i < move.length(); i++)
+	{
+		if ((int(move[i])) < 56 /* && counter == 0 || move[i] == ' ' && counter % 2 != 0*/)
+		{
+			if (int(move[i]) > 46 || int(move[i]) == 32)
+			counter += 1;		
+		}		
+	}
+	if (counter == move.length())
+		return true;
+	else
+		return false;
 }

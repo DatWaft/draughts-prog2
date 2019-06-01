@@ -10,6 +10,7 @@ private:
 	Board* board;
 public:
 	GameControler();
+	GameControler(Board*);
 	~GameControler();
 	void runTheGame();
 	void saveTheGame(string);

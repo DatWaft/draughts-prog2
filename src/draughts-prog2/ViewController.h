@@ -25,6 +25,7 @@ public:
 	void displayBoard(Board*);
 	void print(string);
 	void displayMainMenu();
+	
 
 	size_t amountOfStrings(string);
 	size_t getHigherSize(string);
@@ -32,7 +33,6 @@ public:
 	string alingWidthAndLength(string);
 	string centerString(string);
 	
-	
-
 };
+
 

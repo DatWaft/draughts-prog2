@@ -6,6 +6,12 @@ GameControler::GameControler()
 	board = new Board();
 }
 
+GameControler::GameControler(Board* b)
+{
+	viewControl = new ViewController();
+	board = b;
+}
+
 GameControler::~GameControler()
 {
 	delete viewControl;
@@ -20,10 +26,10 @@ void GameControler::saveTheGame(string name)
 	ofstream game;
 	game.open("../" + name + ".txt");
 
-	for (int i = 0; i < board->MAX; i++)
+	for (int i = 8 ; i > 0; i--)
 	{
-		for (int j = 0; j < board->MAX; j++)
-			game << board->getSprite(i + 1, j + 1) << ";";
+		for (int j = 1; j < board->MAX+1; j++)
+			game << board->getSprite(i, j) << ";";
 		game << endl;
 	}
 	game.close();	
