@@ -38,7 +38,11 @@ int main()
 	cout << showList<Move>(mc.getMovements(Piece::black), "b");
 
 	cout << endl;
-	cout << "Move 61 52: " << (mc.move("61 52", Piece::black) ? "True" : "False") << endl;
+
+	string move;
+	cout << "Digite un movimiento: "; getline(cin, move);
+
+	cout << "Move" << move << ": " << (mc.move(move, Piece::white) ? "True" : "False") << endl;
 
 	v.displayBoard(board);
 

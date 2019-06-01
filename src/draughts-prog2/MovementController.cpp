@@ -19,6 +19,8 @@ bool MovementController::move(string str, Piece::sprite color)
 
 Move MovementController::str_to_move(string str)
 {
+	if (str.length() < 5)
+		return Move();
 	return Move({ stoi(string(1,str[0])), stoi(string(1,str[1])) }, { stoi(string(1,str[3])), stoi(string(1,str[4])) });
 }
 
