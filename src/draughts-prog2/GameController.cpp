@@ -35,38 +35,57 @@ void GameControler::saveTheGame(string name)
 	game.close();	
 }
 
-Board* GameControler::restoreTheGame(string)
+Board* GameControler::restoreTheGame(string gameSaved)
 {
 	ifstream game;
 	string linea, aux;
-	
+	game.open("../" + gameSaved + ".txt");
+	Board* b = new Board();
 
-	try {
-		if (!game)			
-		{
-			throw Exception(" El archivo no existe");
-		}
-		if (game.peek() == std::ifstream::traits_type::eof())
-			throw Exception(" El archivo esta vacio ");
-	}
-	catch (Exception error)
-	{
-		viewControl->print(error.what());
-	}
+	//try {
+	//	if (!game)			
+	//	{
+	//		throw Exception(" El archivo no existe");
+	//	}
+	//	if (game.peek() == std::ifstream::traits_type::eof())
+	//		throw Exception(" El archivo esta vacio ");
+	//}
+	//catch (Exception error)
+	//{
+	//	viewControl->print(error.what());
+	//}
 
-	while (game.good())
-	{
-		getline(game, linea, '\n');
-		stringstream s(linea);
-		
-		if (!linea.empty())
-		{
-			while(getline(s,aux,';'))
-				if (aux !=  " ")
-				{
-					// Rellenar creacion de piezas, 
-				}
-		}
-	}
-
+	//int i = 8;
+	//while (game.good())
+	//{
+	//	getline(game, linea, '\n');
+	//	stringstream s(linea);
+	//	if (!linea.empty())
+	//	{
+	//		int j = 1;
+	//		while (getline(s, aux, ';'))
+	//		{
+	//			if (aux == " ")
+	//				j += 1;
+	//			else 
+	//				if (aux == "X")
+	//				{
+	//					b->setPiece({ i,j }, new Men(Piece::white));  // Revisar la inversion que se hizo en x y o
+	//					j += 1;
+	//				}
+	//				else
+	//					if (aux == "O")
+	//					{
+	//						b->setPiece({ i,j }, new Men(Piece::black));
+	//						j += 1;
+	//					}
+	//			
+	//		
+	//		}
+	//		getline(s, aux, '\n');
+	//	}
+	//	i -= 1;
+	//}
+	//game.close();
+	return b;
 }
