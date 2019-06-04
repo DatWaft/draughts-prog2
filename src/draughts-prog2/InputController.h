@@ -15,7 +15,8 @@ public:
 	string getString();
 	string getMovementInput();
 
-	int getInt(int = 0, int = 0);
+	int getInt();
+	int getIntWhitLimits(int,int);
 
 	bool verifyMovementInput(string);
 

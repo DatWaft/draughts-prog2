@@ -1,5 +1,6 @@
 #pragma once
 #include "ViewController.h"
+#include "InputController.h"
 #include <fstream>
 #include <iostream>
 
@@ -7,13 +8,16 @@ class GameControler
 {
 private:
 	ViewController* viewControl;
+	InputController* inputControl;
 	Board* board;
 public:
 	GameControler();
-	GameControler(Board*);
+	
 	~GameControler();
-	void runTheGame();
+	bool runTheGame();
+	void runTheGame(Board*);
 	void saveTheGame(string);
+	bool makeTheGame();
 	Board* restoreTheGame(string);
 
 

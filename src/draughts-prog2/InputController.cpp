@@ -12,7 +12,7 @@ InputController::~InputController()
 
 void InputController::validation()
 {
-	cout << "Reingrese el dato" << endl;
+	cout << "Reingrese el dato " << endl;
 	cin.clear();
 	cin.ignore();
 }
@@ -20,44 +20,61 @@ void InputController::validation()
 
 string InputController::getString()
 {
-	string data;
-		while (!(getline(cin,data)))
-		{
-			validation();
-		}
-		return data;
+	string data = "";
+	cout << ESC"[s";
+	getline(cin, data);
+	while (data.empty())
+	{
+		cout << string(120, ' ') << ESC"[u";
+			fflush(stdin);
+			cout << ESC"[u";
+			getline(cin, data);
+	}
+	return data;
 }
 
 string InputController::getMovementInput()
 {
 
-	string data;
-	getline(cin, data);
-		while(!verifyMovementInput(data))
-		{	
+	string data = "";
+	cout << ESC"[s";
+	while (data.empty())
+	{
+		cout << string(120, ' ') << ESC"[u";
+		getline(cin, data);
+		while (!verifyMovementInput(data))
+		{
+			
 			fflush(stdin);
+			
+			cout << ESC"[u";
 			getline(cin, data);
 		}
-	
+	}
 	return data;
 }
 
-int InputController::getInt(int a, int b)
+int InputController::getInt()
 {
 	int data;
 
-	if (a && b == 0)
 		while (!(cin >> data))
 		{
 			validation();
 		}
-	else
-		while (!(cin >> data || data > a || data < b))
-		{
-			
-			validation();
-		}
 
+	return data;
+}
+
+int InputController::getIntWhitLimits(int a, int b)
+{
+	int data;
+
+	while ((!(cin >> data) || data < a || data > b))
+	{
+		validation();
+
+	}
 	return data;
 }
 
