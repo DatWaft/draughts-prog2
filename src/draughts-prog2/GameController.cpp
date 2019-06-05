@@ -140,6 +140,26 @@ bool GameControler::makeTheGame()
 	return true;
 }
 
+void GameControler::makeBasicBoard()
+{
+	board = new Board();
+
+	for (int i = 8; i >= 6; i--)
+		for (int j = 1; j <= board->MAX; j++)
+			if (board->darkened({ i,j }))
+				board->setPiece({ i,j }, new Men(Piece::black));
+	for (int i = 3; i >= 1; i--)
+		for (int j = 1; j <= board->MAX; j++)
+			if (board->darkened({ i,j }))
+				board->setPiece({ i,j }, new Men(Piece::white));
+
+}
+
+Board* GameControler::getBoard()
+{
+	return board;
+}
+
 Board* GameControler::restoreTheGame(string gameSaved)
 {
 	ifstream game;
