@@ -59,10 +59,13 @@ void ViewController::displayMainMenu()
 	stringstream menuLine;
 	
 	string aux;
-	menuLine << "1. Jugar modo aleatorio" << endl;
-	menuLine << "2. Jugar modo hardcore" << endl;
-	menuLine << "3. Construir juego" << endl;
-	menuLine << "4. Salir" << endl;
+	menuLine << "1. Estrategia 1" << endl;
+	menuLine << "2. Estrategia 2" << endl;
+	menuLine << "3. Estrategia 3" << endl;
+	menuLine << "4. Estrategia 4" << endl;
+	menuLine << "5. Cargar juego" << endl;
+	menuLine << "6. Crear juego" << endl;
+	menuLine << "7. Salir" << endl;
 
 	print(alingWidthAndLength(menuLine.str()));
 	
@@ -112,9 +115,15 @@ string ViewController::alingWidthAndLength(string textToAline)
 	return r.str();
 }
 
-void ViewController::print(string text)
+void ViewController::print(string text, bool jump)
 {
-	cout << text << endl;
+	if (jump)
+	{
+		cout << text << endl;
+	}
+	else
+		cout << text + " ";
+	
 }
 
 

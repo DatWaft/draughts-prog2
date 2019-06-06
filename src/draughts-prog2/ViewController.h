@@ -5,6 +5,7 @@
 #include <math.h>
 #include <iostream>
 #include <sstream>
+#include "List.h"
 
 #define YELLOW ESC"[93m"
 #define RED ESC"[91m"
@@ -23,7 +24,7 @@ public:
 	virtual ~ViewController();
 
 	void displayBoard(Board*);
-	void print(string);
+	void print(string, bool = true);
 	void displayMainMenu();
 	
 
@@ -33,6 +34,16 @@ public:
 	string alingWidthAndLength(string);
 	string centerString(string);
 	
+	template<class T>
+	void showList(List<T>, string);
 };
 
-
+template<class T>
+inline void ViewController::showList(List<T> v, string title)
+{
+	
+	cout << title << ": ";
+	for (size_t i = 0; i < v.getSize(); i++)
+		cout << "[" << string(v[i]) << "]"; cout << endl;
+	
+}
