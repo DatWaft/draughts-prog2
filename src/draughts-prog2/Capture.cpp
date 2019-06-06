@@ -22,16 +22,48 @@ Capture::Capture(const Capture& move)
 {
 	this->source = move.source;
 	this->destination = move.destination;
-	this->precursor = move.precursor;
-	this->subsequent = move.subsequent;
+	if (move.precursor)
+		throw Exception("No se deben crear copias directas de movimientos que no sean la raíz");
+	this->precursor = nullptr;
+	if (move.subsequent)
+	{
+		this->subsequent = new Capture(this->destination, move.subsequent->destination, this);
+		Capture* p = this->subsequent;
+		Capture* m = move.subsequent;
+
+		m = m->subsequent;
+		while (m)
+		{
+			p = p->createSubsequent(m->destination);
+			m = m->subsequent;
+		}
+	}
+	else
+		this->subsequent = nullptr;
 }
 
 void Capture::operator=(const Capture& move)
 {
 	this->source = move.source;
 	this->destination = move.destination;
-	this->precursor = move.precursor;
-	this->subsequent = move.subsequent;
+	if (move.precursor)
+		throw Exception("No se deben crear copias directas de movimientos que no sean la raíz");
+	this->precursor = nullptr;
+	if (move.subsequent)
+	{
+		this->subsequent = new Capture(this->destination, move.subsequent->destination, this);
+		Capture* p = this->subsequent;
+		Capture* m = move.subsequent;
+
+		m = m->subsequent;
+		while (m)
+		{
+			p = p->createSubsequent(m->destination);
+			m = m->subsequent;
+		}
+	}
+	else
+		this->subsequent = nullptr;
 }
 
 Capture::~Capture()
@@ -57,9 +89,22 @@ Capture* Capture::createSubsequent(Coord destination)
 	return this->subsequent;
 }
 
-Capture::operator string()
+Capture* Capture::createSubsequent(Capture move)
+{
+	if (!this->subsequent)
+		this->subsequent = new Capture(move);
+	return this->subsequent;
+}
+
+Capture::operator string() const
 {
 	if (!this->subsequent)
 		return string(this->source) + " " + string(this->destination);
 	return string(this->source) + " " + string(*this->subsequent);
+}
+
+ostream& operator<<(ostream& out, const Capture& move)
+{
+	out << string(move);
+	return out;
 }

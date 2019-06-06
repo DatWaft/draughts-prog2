@@ -20,7 +20,9 @@ public:
 	Capture* getPrecursor();
 	Capture* getSubsequent();
 	Capture* createSubsequent(Coord);
+	Capture* createSubsequent(Capture);
 
-	operator string();
+	operator string() const;
+	friend ostream& operator << (ostream&, const Capture&);
 };
 
