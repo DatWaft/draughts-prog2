@@ -2,6 +2,8 @@
 
 ConsoleController::ConsoleController()
 {
+	virtualTerminal();
+	unicode();
 }
 
 ConsoleController::~ConsoleController()

@@ -18,17 +18,17 @@ void ViewController::displayBoard(Board* board)
 	stringstream k;
 	
 	string aux; 
-	k << "*"<< string(27,'-')<<"*"<<endl;
+	k <<RED<< "*"<< string(27,'-')<<"*"<<NORMAL<<endl;
 	for (int i = 8; i > 0; i--)
 	{
-		k << "| " << i;
+		k <<RED<< "        | " <<NORMAL<< i;
 		for (int j = 1; j < 9 ; j++)
 			k << "[" << board->getSprite(i, j) << "]";
-		k << " |";
+		k <<RED <<" |"<<NORMAL;
 		k << endl;
 	}
-	k <<"|   1  2  3  4  5  6  7  8  |" << endl;
-	k << "*" << string(27, '-') << "*" << endl;
+	k <<RED<<"        |"<<NORMAL<<"   1  2  3  4  5  6  7  8  "<<RED<<"|" <<NORMAL<< endl;
+	k << RED << "*" << string(27, '-') << "*" << NORMAL<< endl;
 
 	
 	print(centerString(k.str()));
