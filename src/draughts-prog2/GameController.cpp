@@ -1,14 +1,13 @@
 #include "GameController.h"
+#include <conio.h>
 
 GameControler::GameControler()
 {
 	this->viewControl = new ViewController();
 	this->inputControl = new InputController();
 	this->board = nullptr;
-
+	this->movement = nullptr;
 	
-
-
 }
 
 
@@ -31,13 +30,30 @@ bool GameControler::runTheGame()
 		{
 
 		case 1:
-			viewControl->print("gg");
-			system("pause");
+			startBasicBoard();
+			this->movement = new MovementController(board);
+			runTheGame(board);
+	
+			_getch();
 			break;
 		case 2:
+			startBasicBoard();
+			this->movement = new MovementController(board);
+			runTheGame(board);
+			system("pause");
 			break;
-			case 3:break;
-			case 4:break;
+			case 3:
+				startBasicBoard();
+				this->movement = new MovementController(board);
+				runTheGame(board);
+				system("pause");
+				break;
+			case 4:
+				startBasicBoard();
+				this->movement = new MovementController(board);
+				runTheGame(board);
+				system("pause");
+				break;
 			case 5: //cargar
 			{
 				system("cls");
@@ -51,6 +67,8 @@ bool GameControler::runTheGame()
 			case 6:
 			{
 				makeTheGame();
+				this->movement = new MovementController(board);
+				runTheGame(board);
 				break;
 
 			}
@@ -68,6 +86,67 @@ bool GameControler::runTheGame()
 
 void GameControler::runTheGame(Board*)
 {
+	bool flag = true;
+	string move;
+	string iaMove;
+	int opcion;
+	stringstream s;
+
+	while (flag)
+	{
+	;
+
+		system("cls");
+		viewControl->displayBoard(board);
+		viewControl->showList<Move>(movement->getMovements(Piece::white), "w");
+		viewControl->print("\n");
+
+		viewControl->print(" ");
+		viewControl->print(viewControl->centerString("El movimiento de la maquina fue:" + string(42, ' ')),false);
+		viewControl->print(" ");
+		viewControl->print(string(23, ' ')+"Escriba el movimiento que desea realizar:",false);
+		viewControl->print(ESC"[s",false);
+		/*viewControl->print("\n");*/
+		/*s<<"Que accion desea realizar? ";
+		s<<"1. Realizar movimiento.";
+		s<<"2. Cambiar Estrategia.";
+		s<<"3. Guardar partida y salir.";
+		s<<"4. Salir.";
+		viewControl->print(viewControl->centerString(s.str()));
+		opcion = inputControl->getIntWhitLimits(1, 4);*/
+		move = inputControl->getMovementInput();
+		if (move == "Salir" || move == "SALIR" || move == "salir")
+		{
+			viewControl->print(YELLOW);
+			viewControl->print("\n\nPresione una tecla para volver al menu principal.");
+			viewControl->print(NORMAL);
+			flag = false;
+		}
+		else if (move == "Guardar" || move == "guardar" || move == "GUARDAR")
+		{
+			string name;
+			system("cls");
+			viewControl->print(viewControl->alingWidthAndLength("Ingrese el nombre del juego.  "));
+			viewControl->print(viewControl->alingWidthAndLength("advertencia, si el nombre pertenece a otro juego ya almacenado, este se sobreescribira."));
+			name = inputControl->getString();
+			saveTheGame(name);
+			
+			flag = false;
+		}
+		else
+			if (move == "Cambiar" || move == "cambiar" || move == "CAMBIAR")
+			{
+				//luego
+			}
+			else
+				if (movement->move(move, Piece::white))
+				{
+					// realizar movimiento de la maquina.
+				}
+
+	}
+
+
 }
 
 void GameControler::saveTheGame(string name)
@@ -140,9 +219,9 @@ bool GameControler::makeTheGame()
 	return true;
 }
 
-void GameControler::makeBasicBoard()
+void GameControler::startBasicBoard()
 {
-	board = new Board();
+	this->board = new Board();
 
 	for (int i = 8; i >= 6; i--)
 		for (int j = 1; j <= board->MAX; j++)

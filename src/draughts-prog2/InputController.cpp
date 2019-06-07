@@ -27,6 +27,7 @@ string InputController::getString()
 	{
 		cout << string(120, ' ') << ESC"[u";
 			fflush(stdin);
+			cout << "  ";
 			cout << ESC"[u";
 			getline(cin, data);
 	}
@@ -42,14 +43,13 @@ string InputController::getMovementInput()
 	{
 		cout << string(120, ' ') << ESC"[u";
 		getline(cin, data);
-		while (!verifyMovementInput(data))
-		{
-			
+		//while (!verifyMovementInput(data))
+		//{
 			fflush(stdin);
-			
 			cout << ESC"[u";
-			getline(cin, data);
-		}
+			//getline(cin, data);
+			
+		//}
 	}
 	return data;
 }
@@ -81,14 +81,33 @@ int InputController::getIntWhitLimits(int a, int b)
 bool InputController::verifyMovementInput(string move)
 {
 	int counter = 0;
-	;
+	int spaceCounter = 0;
+	
+	if (move[0] == 32)
+		return false;
 
 	for (size_t i = 0; i < move.length(); i++)
 	{
-		if ((int(move[i])) < 56 /* && counter == 0 || move[i] == ' ' && counter % 2 != 0*/)
+		if ((int(move[i])) < 56 )
 		{
 			if (int(move[i]) > 46 || int(move[i]) == 32)
-			counter += 1;		
+			{
+				counter += 1;
+				spaceCounter += 1;
+			}
+			if (spaceCounter != 3 && move[i] == 32)
+			{
+				return false;
+			}
+			if (spaceCounter == 3 && move[i] != 32)
+			{
+				return false;
+			}
+			if (spaceCounter == 3)
+			{
+				spaceCounter = 0;
+			}
+			
 		}		
 	}
 	if (counter == move.length())
