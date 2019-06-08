@@ -24,14 +24,14 @@ public:
 	GameControler();
 	~GameControler();
 	bool runTheGame();
-	void runTheGame(Board*);
+	void runTheGame(Board*,bool = false);
 	void saveTheGame(string);
 	bool makeTheGame();
 	bool emptyBoard();
 	void startBasicBoard();
 	Board* getBoard();
-	Board* restoreTheGame(string);
-	bool winner(string&);
+	Board* restoreTheGame(string,string*);
+	bool winner(string*);
 	void checkAndUpgrade();
 };
 

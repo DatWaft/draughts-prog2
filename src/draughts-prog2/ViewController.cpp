@@ -48,7 +48,7 @@ string ViewController::centerString(string s)
 			margen += 1;
 		}
 		
-		k << string(margen, ' ') + aux << endl;
+		k << string(margen+4, ' ') + aux << endl;
 		
 	}
 	return k.str();

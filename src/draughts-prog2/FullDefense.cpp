@@ -57,3 +57,8 @@ Capture FullDefense::getBest(List<Capture> list) const
 	}
 	return best;
 }
+
+string FullDefense::toString() const
+{
+	return "fullDefense";
+}

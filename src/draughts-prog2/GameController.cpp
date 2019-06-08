@@ -96,14 +96,28 @@ bool GameControler::runTheGame()
 			}
 			case 5: //cargar
 			{
+				string nameOfGame;
+				string restoreStrategy;
 				system("cls");
 				viewControl->print(viewControl->alingWidthAndLength("Inserte el nombre de la partida guardada, el nombre debe ser exactamente el mismo: "));
 				viewControl->print(string((120/2), ' '),false);
-				this->board = restoreTheGame(inputControl->getString());
+				nameOfGame = inputControl->getString();
+				this->board = restoreTheGame(nameOfGame, &restoreStrategy);
 				if (!emptyBoard())
 				{
 					this->movement = new MovementController(board);
-					runTheGame(board);
+					if (restoreStrategy == "random")
+						strategy = new Random(movement);
+					else
+						if (restoreStrategy == "balanced")
+							strategy = new Balanced(movement);
+						else
+							if (restoreStrategy == "fullAtaque")
+								strategy = new FullAttack(movement);
+							else
+								if (restoreStrategy == "fullDefense")
+									strategy = new FullDefense(movement);
+					runTheGame(board,true);
 					system("pause");
 					break;
 				}
@@ -121,6 +135,7 @@ bool GameControler::runTheGame()
 			{
 				makeTheGame();
 				this->movement = new MovementController(board);
+				strategy = new Random(movement);
 				runTheGame(board);
 				break;
 
@@ -137,7 +152,7 @@ bool GameControler::runTheGame()
 
 }
 
-void GameControler::runTheGame(Board*)
+void GameControler::runTheGame(Board*, bool charge)
 {
 	bool flag = true;
 	bool moveFlag = true;
@@ -149,14 +164,26 @@ void GameControler::runTheGame(Board*)
 	int start = 0;
 	bool playerMove = true;
 	
-	system("cls");
-	viewControl->print(viewControl->alingWidthAndLength("Digite 1 para que la IA realice el priemr movimiento, 2 para que el usuario inicie la partida:"), false);
-	start = inputControl->getIntWhitLimits(1, 2);
+	if (charge == false)
+	{
+		system("cls");
+		viewControl->print(GREEN,false);
+		viewControl->print(viewControl->alingWidthAndLength("Digite 1 para que la IA realice el primer movimiento, 2 para que el usuario inicie la partida:"), false);
+		viewControl->print(NORMAL, false);
+		viewControl->print(string(35, ' '), false);
+		start = inputControl->getIntWhitLimits(1, 2);
+	}
+	else
+		start = 2;
 
 	
 	while (flag)
 	{
-		
+		if (!winner(&win))
+		{
+			flag = false;
+			break;
+		}
 		system("cls");
 		if (playerMove && start == 1)
 		{
@@ -166,16 +193,19 @@ void GameControler::runTheGame(Board*)
 	
 		
 		checkAndUpgrade();
+		viewControl->print(RED,false);
+		viewControl->print("Estrategia actual: "+strategy->toString(),false);
+		viewControl->print(NORMAL);
 		viewControl->displayMainInstructions();
 		viewControl->displayBoard(board);
 		viewControl->print(GREEN, false);
-		viewControl->showList<Move>(movement->getMovements(Piece::white), "w");
+		/*viewControl->showList<Move>(movement->getMovements(Piece::white), "w");*/
 		viewControl->print(NORMAL, false);
 		viewControl->print("\n");
 
 		viewControl->print(" ");
 		viewControl->print(YELLOW, false);
-		viewControl->print(viewControl->centerString("El ultimo movimiento de la maquina fue: " + iaMove +(string(44- iaMove.size(), ' ') )),false);
+		viewControl->print(viewControl->centerString("  El ultimo movimiento de la maquina fue: " + iaMove +(string(44- iaMove.size(), ' ') )),false);
 		viewControl->print(NORMAL, false);
 		viewControl->print(" ");
 		viewControl->print(YELLOW, false);
@@ -196,8 +226,11 @@ void GameControler::runTheGame(Board*)
 		{
 			string name;
 			system("cls");
-			viewControl->print(viewControl->alingWidthAndLength("Ingrese el nombre del juego.  "));
-			viewControl->print(viewControl->alingWidthAndLength("advertencia, si el nombre pertenece a otro juego ya almacenado, este se sobreescribira."));
+			viewControl->print("\n\n\n");
+			viewControl->print(GREEN);
+			viewControl->print(viewControl->centerString("Ingrese el nombre del juego.  "));
+			viewControl->print(viewControl->centerString("advertencia, si el nombre pertenece a otro juego ya almacenado, este se sobreescribira."));
+			viewControl->print(NORMAL);
 			name = inputControl->getString();
 			saveTheGame(name);
 			
@@ -207,42 +240,31 @@ void GameControler::runTheGame(Board*)
 			if (move == "Cambiar" || move == "cambiar" || move == "CAMBIAR")
 			{
 				system("cls");
-				stringstream k;
+				/*stringstream change;*/
 				int strategyOption;
-				k << "Elija el tipo de estreategia por la que desea cambiar:      "<<endl;
-				k << "1. Estraetgia aleatoria."<<string(36,' ');
-				k << "2. Estrategia equilibrada." << string(34, ' ');
-				k << "3. Estrategia defensiva." << string(36, ' ');
-				k << "4. Estrategia de ataque." << string(36, ' ');
-				viewControl->print(viewControl->centerString(k.str()));
+				viewControl->print("\n\n");
+				viewControl->print(GREEN);
+				viewControl->print(viewControl->centerString(("Elija el tipo de estreategia por la que desea cambiar:      ")),false);
+				viewControl->print(viewControl->centerString("1. Estraetgia aleatoria." + string(36, ' ')),false);
+				viewControl->print(viewControl->centerString("2. Estrategia equilibrada."+string(34, ' ')),false);
+				viewControl->print(viewControl->centerString("3. Estrategia de ataque." +string(36, ' ')),false);
+				viewControl->print(viewControl->centerString("4. Estrategia de defensa."+string(36, ' ')),false);
+				viewControl->print(NORMAL);
 				strategyOption = inputControl->getIntWhitLimits(1, 4);
-				if (strategy)
-				{
-					delete strategy;
-				}
-				switch (strategyOption)
-				{
-				case 1: 
-				{	strategy = new Random(movement);
-					break;
-				}
-				case 2:
-				{
-					strategy = new Balanced(movement);
-					break;
-				}
-				case 3:
-				{
-					strategy = new FullAttack(movement);
-					break;
-				}
-				case 4:
-				{
-					strategy = new FullDefense(movement);
-					break;
-				}
-
-				}
+				Strategy* temp = strategy;
+				if (strategyOption == 1)
+					strategy = new Random(movement);
+				else
+					if (strategyOption == 2)
+						strategy = new Balanced(movement);
+					else
+						if (strategyOption == 3)
+							strategy = new FullAttack(movement);
+						else
+							if (strategyOption == 4)
+								strategy = new FullDefense(movement);
+				delete temp;
+				
 			}
 			else
 				if (start == 1)
@@ -262,15 +284,16 @@ void GameControler::runTheGame(Board*)
 						}
 					}
 	
-		if (!winner(win))
+		if (!winner(&win))
 			flag = false;
 	}
 
 	system("cls");
 
 	viewControl->print(CYAN,false);
-	viewControl->print(viewControl->centerString("El ganador ha sido: " + win), false);
+	viewControl->print(viewControl->alingWidthAndLength(("El ganador ha sido: " + win)), false);
 	viewControl->print(NORMAL, false);
+	system("pause");
 
 }
 
@@ -285,6 +308,7 @@ void GameControler::saveTheGame(string name)
 			game << board->getSprite(i, j) << ";";
 		game << endl;
 	}
+	game << strategy->toString() << endl;
 	game.close();	
 }
 
@@ -302,11 +326,11 @@ bool GameControler::makeTheGame()
 		viewControl->print("\n");
 		stringstream s;
 		s << "Ingrese el tipo de ficha que desea insertar: (Una ver seleccionado 'terminar', El juego iniciara.) "<<endl;
-		s <<"1. para piezas black ""O""" << endl;
-		s <<"2. para piezas White ""X""" << endl;
-		s <<"3. para piezas reina White ""W""" << endl;
-		s <<"4. para piezas reina Black ""X""" << endl;
-		s <<"5. para terminar" << endl;
+		s << "1. para piezas black O" << string(77,' ')<< endl;
+		s << "2. para piezas White X" << string(77,' ')<< endl;
+		s << "3. para piezas reina White W"<< string(71, ' ') << endl;
+		s << "4. para piezas reina Black X" << string(71, ' ') << endl;
+		s << "5. para terminar" << string(83, ' ') << endl;
 		viewControl->print(viewControl->centerString(s.str()));
 		viewControl->print(string(120 / 2, ' '),false);
 		switch (inputControl->getIntWhitLimits(1,5))
@@ -333,11 +357,8 @@ bool GameControler::makeTheGame()
 				position = inputControl->getIntWhitLimits(11, 88);
 				cout << position;
 				y = position % 10;
-				cout << y;
 				position = position / 10;
 				x = position;
-				cout << x;
-				system("pause");
 				board->setPiece({ x,y }, new Men(Piece::white));
 			break;
 		}
@@ -403,7 +424,7 @@ Board* GameControler::getBoard()
 	return board;
 }
 
-Board* GameControler::restoreTheGame(string gameSaved)
+Board* GameControler::restoreTheGame(string gameSaved,string* strategyName)
 {
 	ifstream game;
 	string linea, aux;
@@ -462,25 +483,34 @@ Board* GameControler::restoreTheGame(string gameSaved)
 								}
 			}
 			getline(s, aux, '\n');
+			if (i == 0)
+			{
+				getline(s, aux, '\n');
+				*strategyName = aux;
+			}
 		}
 		i -= 1;
+		
 	}
+	
 	game.close();
 	return b;
 }
 
-bool GameControler::winner(string& winner)
+bool GameControler::winner(string* winner)
 {
 	if (movement->getCaptures(Piece::white).empty() && movement->getMovements(Piece::white).empty())
 	{
+		*winner = "Black";
 		return false;
-		winner = "Black";
+		
 	}
 	else
 		if (movement->getCaptures(Piece::black).empty() && movement->getMovements(Piece::black).empty())
 		{
+			*winner = "White";
 			return false;
-			winner = "Black";
+			
 		}
 		
 	return true;

@@ -9,3 +9,8 @@ Strategy::Strategy(MovementController* controller)
 Strategy::~Strategy()
 {
 }
+
+string Strategy::toString() const
+{
+	return string();
+}

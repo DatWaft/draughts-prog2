@@ -57,3 +57,8 @@ Capture FullAttack::getBest(List<Capture> list) const
 	}
 	return best;
 }
+
+string FullAttack::toString() const
+{
+	return "fullAtaque";
+}

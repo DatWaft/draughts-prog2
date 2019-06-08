@@ -12,5 +12,6 @@ public:
 	virtual ~Strategy();
 
 	virtual string getMovement() const = 0;
+	virtual string toString() const;
 };
 

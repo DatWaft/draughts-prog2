@@ -8,5 +8,6 @@ class Random: public Strategy
 public:
 	Random(MovementController*);
 	string getMovement() const;
+	string toString() const;
 };
 

@@ -57,3 +57,8 @@ Capture Balanced::getBest(List<Capture> list) const
 	}
 	return best;
 }
+
+string Balanced::toString() const
+{
+	return "balanced";
+}

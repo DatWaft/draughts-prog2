@@ -18,3 +18,8 @@ string Random::getMovement() const
 		return string(v1[rand() % v1.getSize()]);
 	}
 }
+
+string Random::toString() const
+{
+	return "random";
+}
