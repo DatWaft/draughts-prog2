@@ -113,7 +113,7 @@ void GameControler::runTheGame(Board*)
 	{
 	
 		system("cls");
-
+		checkAndUpgrade();
 		viewControl->displayMainInstructions();
 		viewControl->displayBoard(board);
 		viewControl->print(GREEN, false);
