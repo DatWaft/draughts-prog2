@@ -123,11 +123,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Balanced.cpp" />
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="Capture.cpp" />
     <ClCompile Include="ConsoleController.cpp" />
     <ClCompile Include="Coord.cpp" />
     <ClCompile Include="Exception.cpp" />
+    <ClCompile Include="FullAttack.cpp" />
+    <ClCompile Include="FullDefense.cpp" />
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="InputController.cpp" />
     <ClCompile Include="King.cpp" />
@@ -140,13 +143,17 @@
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Strategy.cpp" />
     <ClCompile Include="ViewController.cpp" />
+    <ClCompile Include="Weight.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Balanced.h" />
     <ClInclude Include="Board.h" />
     <ClInclude Include="Capture.h" />
     <ClInclude Include="ConsoleController.h" />
     <ClInclude Include="Coord.h" />
     <ClInclude Include="Exception.h" />
+    <ClInclude Include="FullAttack.h" />
+    <ClInclude Include="FullDefense.h" />
     <ClInclude Include="GameController.h" />
     <ClInclude Include="InputController.h" />
     <ClInclude Include="King.h" />
@@ -160,6 +167,7 @@
     <ClInclude Include="Random.h" />
     <ClInclude Include="Strategy.h" />
     <ClInclude Include="ViewController.h" />
+    <ClInclude Include="Weight.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

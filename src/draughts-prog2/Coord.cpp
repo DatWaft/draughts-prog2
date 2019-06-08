@@ -1,5 +1,10 @@
 #include "Coord.h"
 
+Coord Coord::invert()
+{
+	return Coord{-this->i, -this->j};
+}
+
 Coord::operator bool() const
 {
 	return i <= 8 && i > 0 && j <= 8 && j > 0;
