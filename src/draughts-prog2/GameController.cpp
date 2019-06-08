@@ -117,7 +117,7 @@ void GameControler::runTheGame(Board*)
 		viewControl->displayMainInstructions();
 		viewControl->displayBoard(board);
 		viewControl->print(GREEN, false);
-		/*viewControl->showList<Move>(movement->getMovements(Piece::white), "w");*/
+		viewControl->showList<Move>(movement->getMovements(Piece::white), "w");
 		viewControl->print(NORMAL, false);
 		viewControl->print("\n");
 
