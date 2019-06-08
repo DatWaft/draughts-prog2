@@ -23,6 +23,7 @@ bool GameControler::runTheGame()
 	{
 		system("cls");
 
+		
 		viewControl->displayMainMenu();
 		viewControl->print(YELLOW,false);
 		viewControl->print(string(35, ' ')+"Inserte la opcion de juego que desea realizar", false);
@@ -269,7 +270,7 @@ bool GameControler::emptyBoard()
 
 	for (int i = 8; i > 0; i--)
 		for (int j = 1; j < 9; j++)
-			if (board->getSprite(i,j) == 'X' || board->getSprite(i, j) == 'O')
+			if (board->getSprite(i,j) == 'X' || board->getSprite(i, j) == 'O' || board->getSprite(i,j)== 'B' || board->getSprite(i, j) == 'N')
 				return false;
 				
 	return true;
@@ -328,7 +329,7 @@ Board* GameControler::restoreTheGame(string gameSaved)
 			{
 				if (aux == " ")
 					j += 1;
-				else 
+				else
 					if (aux == "X")
 					{
 						b->setPiece({ i,j }, new Men(Piece::white));  // Revisar la inversion que se hizo en x y o
@@ -340,6 +341,18 @@ Board* GameControler::restoreTheGame(string gameSaved)
 							b->setPiece({ i,j }, new Men(Piece::black));
 							j += 1;
 						}
+						else
+							if (aux == "N")
+							{
+								b->setPiece({ i,j }, new King(Piece::black));
+								j += 1;
+							}
+							else
+								if (aux == "B")
+								{
+									b->setPiece({ i,j }, new King(Piece::white));
+									j += 1;
+								}
 			}
 			getline(s, aux, '\n');
 		}
