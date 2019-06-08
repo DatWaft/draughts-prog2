@@ -1,10 +1,12 @@
 #pragma once
+#include <sstream>
 #include "Board.h"
 #include "Capture.h"
 #include "Men.h"
 #include "King.h"
 
 using std::stoi;
+using std::stringstream;
 
 class MovementController
 {
@@ -14,8 +16,14 @@ public:
 	MovementController(Board*);
 	~MovementController();
 	bool move(string, Piece::sprite);
-	Move str_to_move(string);
+
+	Move* str_to_move(string);
 	bool move(Move, Piece::sprite);
+	bool move(Capture, Piece::sprite);
+
+	List<Capture> purgeCaptures(List<Capture>);
+	int kingsEaten(List<Coord>);
+
 	List<Move> getMovements(Piece::sprite);
 	List<Capture> getCaptures(Piece::sprite);
 

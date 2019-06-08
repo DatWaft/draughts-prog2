@@ -66,10 +66,46 @@ void Capture::operator=(const Capture& move)
 		this->subsequent = nullptr;
 }
 
+bool Capture::operator==(const Capture& move)
+{
+	if(this->source != move.source || this->destination != move.destination)
+		return false;
+
+	if ((this->subsequent && !move.subsequent) || (!this->subsequent && move.subsequent))
+		return false;
+
+	if (!this->subsequent)
+		return true;
+
+	Capture* p = this->subsequent;
+	Capture* m = move.subsequent;
+
+	while (m && p)
+	{
+		if (m->source != p->source || m->destination != p->destination)
+			return false;
+		m = m->subsequent;
+		p = p->subsequent;
+		if ((p && !m) || (!p && m))
+			return false;
+	}
+	return true;
+}
+
 Capture::~Capture()
 {
 	if (this->subsequent)
 		delete this->subsequent;
+}
+
+Coord Capture::getEnd() const
+{
+	Capture* p = this->subsequent;
+	if (!p)
+		return this->getDestination();
+	while (p->subsequent)
+		p = p->subsequent;
+	return p->getDestination();
 }
 
 Capture* Capture::getPrecursor()
@@ -94,6 +130,66 @@ Capture* Capture::createSubsequent(Capture move)
 	if (!this->subsequent)
 		this->subsequent = new Capture(move);
 	return this->subsequent;
+}
+
+List<Coord> Capture::getCaptures()
+{
+	List<Coord> list;
+
+	if (!this->subsequent)
+	{
+		Coord coord = source;
+		if (source.i - destination.i == -2)
+			coord = coord + Coord{ 1, 0 };
+		else
+			coord = coord + Coord{ -1, 0 };
+		if (source.j - destination.j == -2)
+			coord = coord + Coord{ 0, 1 };
+		else
+			coord = coord + Coord{ 0, -1 };
+		list.insert(coord);
+	}
+	else
+	{
+		Coord coord = source;
+		if (source.i - destination.i == -2)
+			coord = coord + Coord{ 1, 0 };
+		else
+			coord = coord + Coord{ -1, 0 };
+		if (source.j - destination.j == -2)
+			coord = coord + Coord{ 0, 1 };
+		else
+			coord = coord + Coord{ 0, -1 };
+		list.insert(coord);
+		list.append(this->subsequent->getCaptures());
+	}
+
+	return list;
+}
+
+int Capture::getNumberCaptures()
+{
+	if (!this->subsequent)
+		return 1;
+	return 1 + this->subsequent->getNumberCaptures();
+}
+
+Capture::operator bool() const
+{
+	if (!this->subsequent)
+		return this->Move::operator bool();
+
+	if (!(bool(source) && bool(destination)))
+		return false;
+
+	Capture* p = this->subsequent;
+	while (p)
+	{
+		if (!(bool(p->source) && bool(p->destination)))
+			return false;
+		p = p->subsequent;
+	}
+	return true;
 }
 
 Capture::operator string() const

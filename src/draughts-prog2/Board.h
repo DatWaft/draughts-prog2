@@ -1,6 +1,7 @@
 #pragma once
 #include "Exception.h"
 #include "Position.h"
+#include "List.h"
 
 class Board
 {
@@ -19,6 +20,7 @@ public:
 	void setPiece(Coord, Piece*);
 	void setPiece(int, int, Piece*);
 
+	void capturePieces(List<Coord>);
 	void capturePiece(Coord);
 	void capturePiece(int, int);
 

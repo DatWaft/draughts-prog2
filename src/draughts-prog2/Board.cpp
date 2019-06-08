@@ -64,6 +64,12 @@ void Board::setPiece(int i, int j, Piece* piece)
 	this->setPiece({ i,j }, piece);
 }
 
+void Board::capturePieces(List<Coord> list)
+{
+	for (size_t i = 0; i < list.getSize(); i++)
+		capturePiece(list[i]);
+}
+
 void Board::capturePiece(Coord coord)
 {
 	setPiece(coord, nullptr);
