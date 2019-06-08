@@ -113,7 +113,7 @@ void GameControler::runTheGame(Board*)
 	{
 	
 		system("cls");
-
+		checkAndUpgrade();
 		viewControl->displayMainInstructions();
 		viewControl->displayBoard(board);
 		viewControl->print(GREEN, false);
@@ -364,7 +364,7 @@ Board* GameControler::restoreTheGame(string gameSaved)
 
 void GameControler::checkAndUpgrade()
 {
-	for (int j = 0; j < Board::MAX; j++)
+	for (int j = 1; j <= Board::MAX; j++)
 	{
 		board->upgradePiece({ 8,j });
 		board->upgradePiece({ 1,j });
