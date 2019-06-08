@@ -89,6 +89,13 @@ int InputController::getIntWhitLimits(int a, int b)
 	return data;
 }
 
+int InputController::getASimpleInt()
+{
+	int data;
+	cin >> data;
+	return data;
+}
+
 bool InputController::verifyMovementInput(string move)
 {
 	int counter = 0;

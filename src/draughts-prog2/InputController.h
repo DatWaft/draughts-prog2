@@ -18,6 +18,7 @@ public:
 
 	int getInt();
 	int getIntWhitLimits(int,int);
+	int getASimpleInt();
 
 	bool verifyMovementInput(string);
 

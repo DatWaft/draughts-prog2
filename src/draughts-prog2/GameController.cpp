@@ -32,8 +32,8 @@ bool GameControler::runTheGame()
 			viewControl->print(string(35, ' ') + "Inserte la opcion de juego que desea realizar", false);
 			viewControl->print(NORMAL, false);
 			option = inputControl->getInt();
-			if (inputControl->intValidation(option));
-			verifyOption = true;
+			if (inputControl->intValidation(option))
+				verifyOption = true;
 		}
 
 		switch (option)
@@ -115,16 +115,31 @@ bool GameControler::runTheGame()
 void GameControler::runTheGame(Board*)
 {
 	bool flag = true;
-	bool moveFlag = false;
+	bool moveFlag = true;
 	string move = " ";
 	string iaMove;
+	string win;
 	/*int opcion;*/
 
+	int start = 0;
+	bool playerMove = true;
+	
+	system("cls");
+	viewControl->print(viewControl->alingWidthAndLength("Digite 1 para que la IA realice el priemr movimiento, 2 para que el usuario inicie la partida:"), false);
+	start = inputControl->getIntWhitLimits(1, 2);
 
+	
 	while (flag)
 	{
-	
+		
 		system("cls");
+		if (playerMove && start == 1)
+		{
+			iaMove = strategy->getMovement();
+			movement->move(iaMove, Piece::black);
+		}
+	
+		
 		checkAndUpgrade();
 		viewControl->displayMainInstructions();
 		viewControl->displayBoard(board);
@@ -166,17 +181,62 @@ void GameControler::runTheGame(Board*)
 		else
 			if (move == "Cambiar" || move == "cambiar" || move == "CAMBIAR")
 			{
-				//luego
+				system("cls");
+				stringstream k;
+				int strategyOption;
+				k << "Elija el tipo de estreategia por la que desea cambiar:      "<<endl;
+				k << "1. Estraetgia aleatoria."<<string(36,' ');
+				k << "2. Estrategia equilibrada." << string(34, ' ');
+				k << "3. Estrategia defensiva." << string(36, ' ');
+				k << "4. Estrategia de ataque." << string(36, ' ');
+				viewControl->print(viewControl->centerString(k.str()));
+				strategyOption = inputControl->getIntWhitLimits(1, 4);
+				if (strategy)
+				{
+					delete strategy;
+				}
+				switch (strategyOption)
+				{
+				case 1: 
+				{	strategy = new Random(movement);
+					break;
+				}
+				case 2:
+				{}
+				case 3:
+				{}
+				case 4:
+				{}
+
+				}
 			}
 			else
-				if (movement->move(move, Piece::white))
+				if (start == 1)
 				{
-					iaMove = strategy->getMovement();
-					movement->move(iaMove, Piece::black);
+					if (movement->move(move, Piece::white))
+						playerMove = true;
+					else
+						playerMove = false;
 				}
+				else
+					if (start == 2)
+					{
+						if (movement->move(move, Piece::white))
+						{
+							iaMove = strategy->getMovement();
+							movement->move(iaMove, Piece::black);
+						}
+					}
 	
+		if (!winner(win))
+			flag == false;
 	}
 
+	system("cls");
+
+	viewControl->print(CYAN,false);
+	viewControl->print(viewControl->centerString("El ganador ha sido: " + win), false);
+	viewControl->print(NORMAL, false);
 
 }
 
@@ -373,6 +433,23 @@ Board* GameControler::restoreTheGame(string gameSaved)
 	}
 	game.close();
 	return b;
+}
+
+bool GameControler::winner(string& winner)
+{
+	if (movement->getCaptures(Piece::white).empty() && movement->getMovements(Piece::white).empty())
+	{
+		return false;
+		winner = "Black";
+	}
+	else
+		if (movement->getCaptures(Piece::black).empty() && movement->getMovements(Piece::black).empty())
+		{
+			return false;
+			winner = "Black";
+		}
+		
+	return true;
 }
 
 void GameControler::checkAndUpgrade()

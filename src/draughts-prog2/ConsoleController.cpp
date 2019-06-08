@@ -5,6 +5,9 @@ ConsoleController::ConsoleController()
 {
 	virtualTerminal();
 	unicode();
+	width = 0;
+	large = 0;
+	bufferSize = 0;
 	changeTheSize(120, 30);
 	limitConsoleExpand();
 	limitConsoleSize();
