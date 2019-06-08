@@ -248,14 +248,14 @@ List<Move> MovementController::getMovements(Men* piece)
 	if (piece->isWhite())
 	{
 		Coord to_check = position + UP;
-		if (bool(position + LEFT)) // Si la posición es válida.
+		if (bool(to_check + LEFT)) // Si la posición es válida.
 		{
 			to_check += LEFT;
 			if (!board->getPiece(to_check)) // Si la posición está libre.
 				moves.insert(Move(piece->getPosition(), to_check));
 		}
 		to_check = position + UP;
-		if (bool(position + RIGHT)) // Si la posición es válida.
+		if (bool(to_check + RIGHT)) // Si la posición es válida.
 		{
 			to_check += RIGHT;
 			if (!board->getPiece(to_check)) // Si la posición está libre.
@@ -265,14 +265,14 @@ List<Move> MovementController::getMovements(Men* piece)
 	else
 	{
 		Coord to_check = position + DOWN;
-		if (bool(position + LEFT)) // Si la posición es válida.
+		if (bool(to_check + LEFT)) // Si la posición es válida.
 		{
 			to_check += LEFT;
 			if (!board->getPiece(to_check)) // Si la posición está libre.
 				moves.insert(Move(piece->getPosition(), to_check));
 		}
 		to_check = position + DOWN;
-		if (bool(position + RIGHT)) // Si la posición es válida.
+		if (bool(to_check + RIGHT)) // Si la posición es válida.
 		{
 			to_check += RIGHT;
 			if (!board->getPiece(to_check)) // Si la posición está libre.
