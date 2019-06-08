@@ -4,6 +4,7 @@
 #include "Capture.h"
 #include "Men.h"
 #include "King.h"
+#include "Weight.h"
 
 using std::stoi;
 using std::stringstream;
@@ -36,5 +37,9 @@ public:
 
 	List<Capture> getCaptures(Men*);
 	List<Capture> getCaptures(King*);
+
+	List<Weight> weightMovements(List<Move>);
+	List<Weight> weightMovements(List<Capture>);
+	Weight reconPosition(Coord, Piece*);
 };
 

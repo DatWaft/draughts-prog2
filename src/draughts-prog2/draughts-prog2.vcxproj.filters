@@ -111,6 +111,18 @@
     <ClCompile Include="Random.cpp">
       <Filter>Archivos de origen\Estrategias</Filter>
     </ClCompile>
+    <ClCompile Include="Weight.cpp">
+      <Filter>Archivos de origen\Structs</Filter>
+    </ClCompile>
+    <ClCompile Include="FullAttack.cpp">
+      <Filter>Archivos de origen\Estrategias</Filter>
+    </ClCompile>
+    <ClCompile Include="FullDefense.cpp">
+      <Filter>Archivos de origen\Estrategias</Filter>
+    </ClCompile>
+    <ClCompile Include="Balanced.cpp">
+      <Filter>Archivos de origen\Estrategias</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="List.h">
@@ -165,6 +177,18 @@
       <Filter>Archivos de encabezado\Estrategias</Filter>
     </ClInclude>
     <ClInclude Include="Random.h">
+      <Filter>Archivos de encabezado\Estrategias</Filter>
+    </ClInclude>
+    <ClInclude Include="Weight.h">
+      <Filter>Archivos de encabezado\Structs</Filter>
+    </ClInclude>
+    <ClInclude Include="FullAttack.h">
+      <Filter>Archivos de encabezado\Estrategias</Filter>
+    </ClInclude>
+    <ClInclude Include="FullDefense.h">
+      <Filter>Archivos de encabezado\Estrategias</Filter>
+    </ClInclude>
+    <ClInclude Include="Balanced.h">
       <Filter>Archivos de encabezado\Estrategias</Filter>
     </ClInclude>
   </ItemGroup>

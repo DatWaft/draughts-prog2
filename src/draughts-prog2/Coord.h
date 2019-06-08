@@ -11,6 +11,8 @@ struct Coord
 	int i{ 0 };
 	int j{ 0 };
 
+	Coord invert();
+
 	operator bool() const;
 	operator string() const;
 

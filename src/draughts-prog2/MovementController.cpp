@@ -595,3 +595,307 @@ List<Capture> MovementController::getCaptures(King* piece)
 	return moves;
 }
 
+List<Weight> MovementController::weightMovements(List<Move> list)
+{
+	List<Weight> weights;
+	Piece* piece;
+	Weight weight;
+
+	for (size_t i = 0; i < list.getSize(); i++)
+	{
+		weight = Weight();
+		piece = board->getPiece(list[i].getSource());
+
+		weight = weight - reconPosition(list[i].getSource(), piece);
+		weight = weight + reconPosition(list[i].getDestination(), piece);
+		weights.insert(weight);
+	}
+
+	return weights;
+}
+
+List<Weight> MovementController::weightMovements(List<Capture> list)
+{
+
+	List<Weight> weights;
+	Piece* piece;
+	Weight weight;
+
+	for (size_t i = 0; i < list.getSize(); i++)
+	{
+		weight = Weight();
+		piece = board->getPiece(list[i].getSource());
+
+		weight = weight - reconPosition(list[i].getSource(), piece);
+		weight = weight + reconPosition(list[i].getEnd(), piece);
+		weights.insert(weight);
+	}
+
+	return weights;
+}
+
+Weight MovementController::reconPosition(Coord position, Piece* piece)
+{
+	Weight weight;
+	// MODIFIERS
+	// POSITION
+	const Coord UP = { 1, 0 };
+	const Coord DOWN = { -1, 0 };
+	const Coord LEFT = { 0, -1 };
+	const Coord RIGHT = { 0, 1 };
+	// WEIGHT
+	const Weight ICANBEEATEN = { 0,-10 };
+	const Weight ENEMYNEAR = { 5, -5 };
+	const Weight ICANTBEEATEN = { 0, 5 };
+	const Weight TOWARDSTHEMOTHERLAND = { 10, 0 }; // Avanzar hacia el lado enemigo es bueno para el ataque.
+	// --------
+	Coord modifier;
+	Coord to_check;
+	Piece* potential_enemy;
+	Coord to_eaten;
+
+	// [o| | ] o = posición para fijarme si hay un enemigo.
+	// [ |x| ] x = posición actual.
+	// [ | |m] m = posición para ver si me pueden comer.
+	modifier = Coord() + UP + LEFT;
+	to_check = piece->getPosition() + modifier;
+	potential_enemy = board->getPiece(to_check);
+	to_eaten = piece->getPosition() + modifier.invert();
+
+	if (bool(to_check))	// Si la posición es valida.
+	{
+		// Si el potencial enemigo existe
+		if (potential_enemy)
+		{
+			// Si es un enemigo.
+			if ((piece->isBlack() && potential_enemy->isWhite()) || (piece->isWhite() && potential_enemy->isBlack()))
+			{
+				weight += ENEMYNEAR;
+				if (bool(to_eaten) && !board->getPiece(to_eaten))
+				{
+					weight += ICANBEEATEN;
+				}
+			}
+			else
+			{
+				weight += ICANTBEEATEN;
+			}
+		}
+		else
+		{
+			if (bool(to_eaten) && !board->getPiece(to_eaten))
+			{
+				// Se avanza en esa diagonal.
+				to_check = position + modifier;
+				while (bool(to_check) && !board->getPiece(to_check))
+				{
+					to_check = to_check + modifier;
+				}
+				// Si se encuentra una pieza, y esta está coronada.
+				if (bool(to_check) && board->getPiece(to_check) && board->getPiece(to_check)->isCrowned())
+				{
+					// Y esa pieza es un enemigo.
+					if ((piece->isBlack() && board->getPiece(to_check)->isWhite()) || (piece->isWhite() && board->getPiece(to_check)->isBlack()))
+					{
+						weight += ICANBEEATEN;
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		weight += ICANTBEEATEN;
+
+		// Hay posibilidades de avanzar!
+		if (piece->isWhite())
+		{
+			weight += TOWARDSTHEMOTHERLAND;
+		}
+	}
+
+	// [ | |o] o = posición para fijarme si hay un enemigo.
+	// [ |x| ] x = posición actual.
+	// [m| | ] m = posición para ver si me pueden comer.
+	modifier = Coord() + UP + RIGHT;
+	to_check = piece->getPosition() + modifier;
+	potential_enemy = board->getPiece(to_check);
+	to_eaten = piece->getPosition() + modifier.invert();
+
+	if (bool(to_check))	// Si la posición es valida.
+	{
+		// Si el potencial enemigo existe
+		if (potential_enemy)
+		{
+			// Si es un enemigo.
+			if ((piece->isBlack() && potential_enemy->isWhite()) || (piece->isWhite() && potential_enemy->isBlack()))
+			{
+				weight += ENEMYNEAR;
+				if (bool(to_eaten) && !board->getPiece(to_eaten))
+				{
+					weight += ICANBEEATEN;
+				}
+			}
+			else
+			{
+				weight += ICANTBEEATEN;
+			}
+		}
+		else
+		{
+			if (bool(to_eaten) && !board->getPiece(to_eaten))
+			{
+				// Se avanza en esa diagonal.
+				to_check = position + modifier;
+				while (bool(to_check) && !board->getPiece(to_check))
+				{
+					to_check = to_check + modifier;
+				}
+				// Si se encuentra una pieza, y esta está coronada.
+				if (bool(to_check) && board->getPiece(to_check) && board->getPiece(to_check)->isCrowned())
+				{
+					// Y esa pieza es un enemigo.
+					if ((piece->isBlack() && board->getPiece(to_check)->isWhite()) || (piece->isWhite() && board->getPiece(to_check)->isBlack()))
+					{
+						weight += ICANBEEATEN;
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		weight += ICANTBEEATEN;
+
+		// Hay posibilidades de avanzar!
+		if (piece->isWhite())
+		{
+			weight += TOWARDSTHEMOTHERLAND;
+		}
+	}
+
+	// [ | |m] o = posición para fijarme si hay un enemigo.
+	// [ |x| ] x = posición actual.
+	// [o| | ] m = posición para ver si me pueden comer.
+	modifier = Coord() + DOWN + LEFT;
+	to_check = piece->getPosition() + modifier;
+	potential_enemy = board->getPiece(to_check);
+	to_eaten = piece->getPosition() + modifier.invert();
+
+	if (bool(to_check))	// Si la posición es valida.
+	{
+		// Si el potencial enemigo existe
+		if (potential_enemy)
+		{
+			// Si es un enemigo.
+			if ((piece->isBlack() && potential_enemy->isWhite()) || (piece->isWhite() && potential_enemy->isBlack()))
+			{
+				weight += ENEMYNEAR;
+				if (bool(to_eaten) && !board->getPiece(to_eaten))
+				{
+					weight += ICANBEEATEN;
+				}
+			}
+			else
+			{
+				weight += ICANTBEEATEN;
+			}
+		}
+		else
+		{
+			if (bool(to_eaten) && !board->getPiece(to_eaten))
+			{
+				// Se avanza en esa diagonal.
+				to_check = position + modifier;
+				while (bool(to_check) && !board->getPiece(to_check))
+				{
+					to_check = to_check + modifier;
+				}
+				// Si se encuentra una pieza, y esta está coronada.
+				if (bool(to_check) && board->getPiece(to_check) && board->getPiece(to_check)->isCrowned())
+				{
+					// Y esa pieza es un enemigo.
+					if ((piece->isBlack() && board->getPiece(to_check)->isWhite()) || (piece->isWhite() && board->getPiece(to_check)->isBlack()))
+					{
+						weight += ICANBEEATEN;
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		weight += ICANTBEEATEN;
+
+		// Hay posibilidades de avanzar!
+		if (piece->isBlack())
+		{
+			weight += TOWARDSTHEMOTHERLAND;
+		}
+	}
+
+	// [m| | ] o = posición para fijarme si hay un enemigo.
+	// [ |x| ] x = posición actual.
+	// [ | |o] m = posición para ver si me pueden comer.
+	modifier = Coord() + DOWN + RIGHT;
+	to_check = piece->getPosition() + modifier;
+	potential_enemy = board->getPiece(to_check);
+	to_eaten = piece->getPosition() + modifier.invert();
+
+	if (bool(to_check))	// Si la posición es valida.
+	{
+		// Si el potencial enemigo existe
+		if (potential_enemy)
+		{
+			// Si es un enemigo.
+			if ((piece->isBlack() && potential_enemy->isWhite()) || (piece->isWhite() && potential_enemy->isBlack()))
+			{
+				weight += ENEMYNEAR;
+				if (bool(to_eaten) && !board->getPiece(to_eaten))
+				{
+					weight += ICANBEEATEN;
+				}
+			}
+			else
+			{
+				weight += ICANTBEEATEN;
+			}
+		}
+		else
+		{
+			if (bool(to_eaten) && !board->getPiece(to_eaten))
+			{
+				// Se avanza en esa diagonal.
+				to_check = position + modifier;
+				while (bool(to_check) && !board->getPiece(to_check))
+				{
+					to_check = to_check + modifier;
+				}
+				// Si se encuentra una pieza, y esta está coronada.
+				if (bool(to_check) && board->getPiece(to_check) && board->getPiece(to_check)->isCrowned())
+				{
+					// Y esa pieza es un enemigo.
+					if ((piece->isBlack() && board->getPiece(to_check)->isWhite()) || (piece->isWhite() && board->getPiece(to_check)->isBlack()))
+					{
+						weight += ICANBEEATEN;
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		weight += ICANTBEEATEN;
+
+		// Hay posibilidades de avanzar!
+		if (piece->isBlack())
+		{
+			weight += TOWARDSTHEMOTHERLAND;
+		}
+	}
+
+	return weight;
+}
+
+
+
