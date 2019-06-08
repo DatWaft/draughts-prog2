@@ -190,6 +190,7 @@ void GameControler::runTheGame(Board*, bool charge)
 		{
 			iaMove = strategy->getMovement();
 			movement->move(iaMove, Piece::black);
+			checkAndUpgrade();
 		}
 	
 		
@@ -206,6 +207,11 @@ void GameControler::runTheGame(Board*, bool charge)
 		}
 		else
 			viewControl->showList<Capture>(movement->purgeCaptures(movement->getCaptures(Piece::white)), "w");
+		
+		if (movement->getCaptures(Piece::white).empty() && movement->getMovements(Piece::white).empty())
+		{
+			viewControl->print(" Se ha quedado sin algun tipo de movimiento, dijite un 0 para poder continuar");
+		}
 
 		viewControl->print(NORMAL, false);
 		viewControl->print(" ");
@@ -284,7 +290,10 @@ void GameControler::runTheGame(Board*, bool charge)
 				if (start == 1)
 				{
 					if (movement->move(move, Piece::white))
+					{
 						playerMove = true;
+						checkAndUpgrade();
+					}
 					else
 					{
 						playerMove = false;
@@ -296,8 +305,10 @@ void GameControler::runTheGame(Board*, bool charge)
 					{
 						if (movement->move(move, Piece::white))
 						{
+							checkAndUpgrade();
 							iaMove = strategy->getMovement();
 							movement->move(iaMove, Piece::black);
+							checkAndUpgrade();
 						}
 					}
 	
@@ -531,7 +542,7 @@ bool GameControler::winner(string& winner)
 			return false;
 			
 		}
-		
+
 	return true;
 }
 
