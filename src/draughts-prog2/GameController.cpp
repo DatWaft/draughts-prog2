@@ -49,7 +49,7 @@ bool GameControler::runTheGame()
 		strategy = new Random(movement);
 		runTheGame(board);
 
-		_getch();
+		
 		break;
 		}
 		case 2:
@@ -77,7 +77,7 @@ bool GameControler::runTheGame()
 				this->movement = new MovementController(board);
 				strategy = new FullAttack(movement);
 				runTheGame(board);
-				system("pause");
+				
 				break;
 			}
 			case 4:
@@ -91,7 +91,7 @@ bool GameControler::runTheGame()
 				this->movement = new MovementController(board);
 				strategy = new FullDefense(movement);
 				runTheGame(board);
-				system("pause");
+				
 				break;
 			}
 			case 5: //cargar
@@ -118,7 +118,7 @@ bool GameControler::runTheGame()
 								if (restoreStrategy == "fullDefense")
 									strategy = new FullDefense(movement);
 					runTheGame(board,true);
-					system("pause");
+				
 					break;
 				}
 				else
@@ -156,6 +156,7 @@ void GameControler::runTheGame(Board*, bool charge)
 {
 	bool flag = true;
 	bool moveFlag = true;
+	bool moveFalse = true;
 	string move = " ";
 	string iaMove;
 	string win;
@@ -199,11 +200,24 @@ void GameControler::runTheGame(Board*, bool charge)
 		viewControl->displayMainInstructions();
 		viewControl->displayBoard(board);
 		viewControl->print(GREEN, false);
-		/*viewControl->showList<Move>(movement->getMovements(Piece::white), "w");*/
-		viewControl->print(NORMAL, false);
-		viewControl->print("\n");
+		if (movement->getCaptures(Piece::white).empty())
+		{
+			viewControl->showList<Move>(movement->getMovements(Piece::white), "w");
+		}
+		else
+			viewControl->showList<Capture>(movement->getCaptures(Piece::white), "w");
 
+		viewControl->print(NORMAL, false);
 		viewControl->print(" ");
+
+		if (!moveFalse)
+		{
+			viewControl->print(RED, false);
+			viewControl->print("El ultimo movimiento no era correcto o no era permitido, no se realizó. ");
+			viewControl->print(NORMAL);
+			moveFalse = true;
+		}
+
 		viewControl->print(YELLOW, false);
 		viewControl->print(viewControl->centerString("  El ultimo movimiento de la maquina fue: " + iaMove +(string(44- iaMove.size(), ' ') )),false);
 		viewControl->print(NORMAL, false);
@@ -272,7 +286,10 @@ void GameControler::runTheGame(Board*, bool charge)
 					if (movement->move(move, Piece::white))
 						playerMove = true;
 					else
+					{
 						playerMove = false;
+						moveFalse = false;
+					}
 				}
 				else
 					if (start == 2)
@@ -289,12 +306,14 @@ void GameControler::runTheGame(Board*, bool charge)
 	}
 
 	system("cls");
-
-	viewControl->print(CYAN,false);
-	viewControl->print(viewControl->alingWidthAndLength(("El ganador ha sido: " + win)), false);
-	viewControl->print(NORMAL, false);
-	system("pause");
-
+	if (!win.empty())
+	{
+		viewControl->print(CYAN, false);
+		viewControl->print(viewControl->alingWidthAndLength(("El ganador ha sido: " + win)), false);
+		viewControl->print(NORMAL, false);
+		system("pause");
+	}
+	
 }
 
 void GameControler::saveTheGame(string name)
