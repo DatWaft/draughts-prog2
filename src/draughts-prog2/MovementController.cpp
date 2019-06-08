@@ -470,7 +470,7 @@ List<Capture> MovementController::getCaptures(Men* piece)
 	return moves;
 }
 
-List<Capture> MovementController::getCaptures(King* piece)
+List<Capture> MovementController::getCaptures(King* piece, Coord origin)
 {
 	List<Capture> moves;
 	if (!piece)
@@ -489,26 +489,29 @@ List<Capture> MovementController::getCaptures(King* piece)
 	// [ | |X| | ] // +: posición a checkear para ver enemigo.
 	// [ | | | | ] // Nota: La distancia entre X y + puede ser tan amplia como se desee.
 	// [ | | | | ]
-	to_check = position + UP + LEFT;
-	while (bool(to_check) && !board->getPiece(to_check))
-		to_check = to_check + UP + LEFT;
-	if (bool(to_check) && board->getPiece(to_check) && ((board->getPiece(to_check)->isBlack() && piece->isWhite()) || board->getPiece(to_check)->isWhite() && piece->isBlack()))
+	if (origin != Coord() + DOWN + RIGHT)
 	{
-		to_check = to_check + UP + LEFT;
-		if (bool(to_check) && !board->getPiece(to_check)) // Si la posición a moverse esta disponible y vacía.
+		to_check = position + UP + LEFT;
+		while (bool(to_check) && !board->getPiece(to_check))
+			to_check = to_check + UP + LEFT;
+		if (bool(to_check) && board->getPiece(to_check) && ((board->getPiece(to_check)->isBlack() && piece->isWhite()) || board->getPiece(to_check)->isWhite() && piece->isBlack()))
 		{
-			Capture aux(position, to_check);
-			moves.insert(aux);
-
-			King* temp = new King(piece->getColor(), to_check);
-			auto list = getCaptures(temp);
-			delete temp;
-
-			for (size_t i = 0; i < list.getSize(); i++)
+			to_check = to_check + UP + LEFT;
+			if (bool(to_check) && !board->getPiece(to_check)) // Si la posición a moverse esta disponible y vacía.
 			{
-				aux = Capture(position, to_check);
-				aux.createSubsequent(list[i]);
+				Capture aux(position, to_check);
 				moves.insert(aux);
+
+				King* temp = new King(piece->getColor(), to_check);
+				auto list = getCaptures(temp, Coord() + UP + LEFT);
+				delete temp;
+
+				for (size_t i = 0; i < list.getSize(); i++)
+				{
+					aux = Capture(position, to_check);
+					aux.createSubsequent(list[i]);
+					moves.insert(aux);
+				}
 			}
 		}
 	}
@@ -518,55 +521,60 @@ List<Capture> MovementController::getCaptures(King* piece)
 	// [ | |X| | ] // +: posición a checkear para ver enemigo.
 	// [ | | | | ] // Nota: La distancia entre X y + puede ser tan amplia como se desee.
 	// [ | | | | ]
-	to_check = position + UP + RIGHT;
-	while (bool(to_check) && !board->getPiece(to_check))
-		to_check = to_check + UP + RIGHT;
-	if (bool(to_check) && board->getPiece(to_check) && ((board->getPiece(to_check)->isBlack() && piece->isWhite()) || board->getPiece(to_check)->isWhite() && piece->isBlack()))
+	if (origin != Coord() + DOWN + LEFT)
 	{
-		to_check = to_check + UP + RIGHT;
-		if (bool(to_check) && !board->getPiece(to_check)) // Si la posición a moverse esta disponible y vacía.
+		to_check = position + UP + RIGHT;
+		while (bool(to_check) && !board->getPiece(to_check))
+			to_check = to_check + UP + RIGHT;
+		if (bool(to_check) && board->getPiece(to_check) && ((board->getPiece(to_check)->isBlack() && piece->isWhite()) || board->getPiece(to_check)->isWhite() && piece->isBlack()))
 		{
-			Capture aux(position, to_check);
-			moves.insert(aux);
-
-			King* temp = new King(piece->getColor(), to_check);
-			auto list = getCaptures(temp);
-			delete temp;
-
-			for (size_t i = 0; i < list.getSize(); i++)
+			to_check = to_check + UP + RIGHT;
+			if (bool(to_check) && !board->getPiece(to_check)) // Si la posición a moverse esta disponible y vacía.
 			{
-				aux = Capture(position, to_check);
-				aux.createSubsequent(list[i]);
+				Capture aux(position, to_check);
 				moves.insert(aux);
+
+				King* temp = new King(piece->getColor(), to_check);
+				auto list = getCaptures(temp, Coord() + UP + RIGHT);
+				delete temp;
+
+				for (size_t i = 0; i < list.getSize(); i++)
+				{
+					aux = Capture(position, to_check);
+					aux.createSubsequent(list[i]);
+					moves.insert(aux);
+				}
 			}
 		}
 	}
-
 	// [ | | | | ] // O: posición donde quedaría la pieza.
 	// [ | | | | ] // X: posición de la pieza
 	// [ | |X| | ] // +: posición a checkear para ver enemigo.
 	// [ |+| | | ] // Nota: La distancia entre X y + puede ser tan amplia como se desee.
 	// [o| | | | ]
-	to_check = position + DOWN + LEFT;
-	while (bool(to_check) && !board->getPiece(to_check))
-		to_check = to_check + DOWN + LEFT;
-	if (bool(to_check) && board->getPiece(to_check) && ((board->getPiece(to_check)->isBlack() && piece->isWhite()) || board->getPiece(to_check)->isWhite() && piece->isBlack()))
+	if (origin != Coord() + UP + RIGHT)
 	{
-		to_check = to_check + DOWN + LEFT;
-		if (bool(to_check) && !board->getPiece(to_check)) // Si la posición a moverse esta disponible y vacía.
+		to_check = position + DOWN + LEFT;
+		while (bool(to_check) && !board->getPiece(to_check))
+			to_check = to_check + DOWN + LEFT;
+		if (bool(to_check) && board->getPiece(to_check) && ((board->getPiece(to_check)->isBlack() && piece->isWhite()) || board->getPiece(to_check)->isWhite() && piece->isBlack()))
 		{
-			Capture aux(position, to_check);
-			moves.insert(aux);
-
-			King* temp = new King(piece->getColor(), to_check);
-			auto list = getCaptures(temp);
-			delete temp;
-
-			for (size_t i = 0; i < list.getSize(); i++)
+			to_check = to_check + DOWN + LEFT;
+			if (bool(to_check) && !board->getPiece(to_check)) // Si la posición a moverse esta disponible y vacía.
 			{
-				aux = Capture(position, to_check);
-				aux.createSubsequent(list[i]);
+				Capture aux(position, to_check);
 				moves.insert(aux);
+
+				King* temp = new King(piece->getColor(), to_check);
+				auto list = getCaptures(temp, Coord() + DOWN + LEFT);
+				delete temp;
+
+				for (size_t i = 0; i < list.getSize(); i++)
+				{
+					aux = Capture(position, to_check);
+					aux.createSubsequent(list[i]);
+					moves.insert(aux);
+				}
 			}
 		}
 	}
@@ -576,26 +584,29 @@ List<Capture> MovementController::getCaptures(King* piece)
 	// [ | |X| | ] // +: posición a checkear para ver enemigo.
 	// [ | | |+| ] // Nota: La distancia entre X y + puede ser tan amplia como se desee.
 	// [ | | | |o]
-	to_check = position + DOWN + RIGHT;
-	while (bool(to_check) && !board->getPiece(to_check))
-		to_check = to_check + DOWN + RIGHT;
-	if (bool(to_check) && board->getPiece(to_check) && ((board->getPiece(to_check)->isBlack() && piece->isWhite()) || board->getPiece(to_check)->isWhite() && piece->isBlack()))
+	if (origin != Coord() + UP + LEFT)
 	{
-		to_check = to_check + DOWN + RIGHT;
-		if (bool(to_check) && !board->getPiece(to_check)) // Si la posición a moverse esta disponible y vacía.
+		to_check = position + DOWN + RIGHT;
+		while (bool(to_check) && !board->getPiece(to_check))
+			to_check = to_check + DOWN + RIGHT;
+		if (bool(to_check) && board->getPiece(to_check) && ((board->getPiece(to_check)->isBlack() && piece->isWhite()) || board->getPiece(to_check)->isWhite() && piece->isBlack()))
 		{
-			Capture aux(position, to_check);
-			moves.insert(aux);
-
-			King* temp = new King(piece->getColor(), to_check);
-			auto list = getCaptures(temp);
-			delete temp;
-
-			for (size_t i = 0; i < list.getSize(); i++)
+			to_check = to_check + DOWN + RIGHT;
+			if (bool(to_check) && !board->getPiece(to_check)) // Si la posición a moverse esta disponible y vacía.
 			{
-				aux = Capture(position, to_check);
-				aux.createSubsequent(list[i]);
+				Capture aux(position, to_check);
 				moves.insert(aux);
+
+				King* temp = new King(piece->getColor(), to_check);
+				auto list = getCaptures(temp, Coord() + DOWN + RIGHT);
+				delete temp;
+
+				for (size_t i = 0; i < list.getSize(); i++)
+				{
+					aux = Capture(position, to_check);
+					aux.createSubsequent(list[i]);
+					moves.insert(aux);
+				}
 			}
 		}
 	}

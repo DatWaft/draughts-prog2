@@ -36,7 +36,7 @@ public:
 	List<Move> getMovements(King*);
 
 	List<Capture> getCaptures(Men*);
-	List<Capture> getCaptures(King*);
+	List<Capture> getCaptures(King*, Coord = {0,0});
 
 	List<Weight> weightMovements(List<Move>);
 	List<Weight> weightMovements(List<Capture>);
