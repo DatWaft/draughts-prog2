@@ -24,7 +24,7 @@ public:
 	Board* getBoard();
 	Board* restoreTheGame(string);
 
-
+	void checkAndUpgrade();
 };
 
 

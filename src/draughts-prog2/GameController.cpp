@@ -212,6 +212,7 @@ bool GameControler::makeTheGame()
 			y = position % 10;
 			position = position / 10;
 			x = position;
+
 			board->setPiece({ x,y }, new Men(Piece::black));
 			break;
 		}
@@ -346,4 +347,13 @@ Board* GameControler::restoreTheGame(string gameSaved)
 	}
 	game.close();
 	return b;
+}
+
+void GameControler::checkAndUpgrade()
+{
+	for (int j = 0; j < Board::MAX; j++)
+	{
+		board->upgradePiece({ 8,j });
+		board->upgradePiece({ 1,j });
+	}
 }
