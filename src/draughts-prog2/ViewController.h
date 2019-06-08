@@ -26,6 +26,7 @@ public:
 	void displayBoard(Board*);
 	void print(string, bool = true);
 	void displayMainMenu();
+	void displayMainInstructions();
 	
 
 	size_t amountOfStrings(string);

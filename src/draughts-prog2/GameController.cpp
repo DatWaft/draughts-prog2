@@ -1,14 +1,13 @@
 #include "GameController.h"
+#include <conio.h>
 
 GameControler::GameControler()
 {
 	this->viewControl = new ViewController();
 	this->inputControl = new InputController();
 	this->board = nullptr;
-
+	this->movement = nullptr;
 	
-
-
 }
 
 
@@ -25,32 +24,66 @@ bool GameControler::runTheGame()
 		system("cls");
 
 		viewControl->displayMainMenu();
-		viewControl->print("Inserte la opcion de juego que desea realizar", false);
+		viewControl->print(YELLOW,false);
+		viewControl->print(string(35, ' ')+"Inserte la opcion de juego que desea realizar", false);
+		viewControl->print(NORMAL,false);
 		option = inputControl->getInt();
 		switch (option)
 		{
 
 		case 1:
-			viewControl->print("gg");
-			system("pause");
+			startBasicBoard();
+			this->movement = new MovementController(board);
+			runTheGame(board);
+	
+			_getch();
 			break;
 		case 2:
+			startBasicBoard();
+			this->movement = new MovementController(board);
+			runTheGame(board);
+			system("pause");
 			break;
-			case 3:break;
-			case 4:break;
+			case 3:
+				startBasicBoard();
+				this->movement = new MovementController(board);
+				runTheGame(board);
+				system("pause");
+				break;
+			case 4:
+				startBasicBoard();
+				this->movement = new MovementController(board);
+				runTheGame(board);
+				system("pause");
+				break;
 			case 5: //cargar
 			{
 				system("cls");
 				viewControl->print(viewControl->alingWidthAndLength("Inserte el nombre de la partida guardada, el nombre debe ser exactamente el mismo: "));
 				viewControl->print(string((120/2), ' '),false);
 				this->board = restoreTheGame(inputControl->getString());
-				runTheGame(board);
-				system("pause");
-				break;
+				if (!emptyBoard())
+				{
+					this->movement = new MovementController(board);
+					runTheGame(board);
+					system("pause");
+					break;
+				}
+				else
+				{
+					system("cls");
+					viewControl->print(YELLOW, false);
+					viewControl->print(viewControl->alingWidthAndLength("El juego no existe, presione una tecla para volver al menu principal."),false);
+					viewControl->print(NORMAL, false);
+					_getch();
+					break;
+				}
 			}
 			case 6:
 			{
 				makeTheGame();
+				this->movement = new MovementController(board);
+				runTheGame(board);
 				break;
 
 			}
@@ -68,6 +101,69 @@ bool GameControler::runTheGame()
 
 void GameControler::runTheGame(Board*)
 {
+	bool flag = true;
+	bool moveFlag = false;
+	string move;
+	string iaMove;
+	/*int opcion;*/
+
+
+	while (flag)
+	{
+	
+		system("cls");
+
+		viewControl->displayMainInstructions();
+		viewControl->displayBoard(board);
+		viewControl->print(GREEN, false);
+		/*viewControl->showList<Move>(movement->getMovements(Piece::white), "w");*/
+		viewControl->print(NORMAL, false);
+		viewControl->print("\n");
+
+		viewControl->print(" ");
+		viewControl->print(YELLOW, false);
+		viewControl->print(viewControl->centerString("El movimiento de la maquina fue:" + string(42, ' ')),false);
+		viewControl->print(NORMAL, false);
+		viewControl->print(" ");
+		viewControl->print(YELLOW, false);
+		viewControl->print(string(23, ' ')+"Escriba el movimiento que desea realizar:",false);
+		viewControl->print(NORMAL, false);
+	
+		
+		move = inputControl->getMovementInput();
+		
+		if (move == "Salir" || move == "SALIR" || move == "salir")
+		{
+			viewControl->print(YELLOW);
+			viewControl->print("\n\nPresione una tecla para volver al menu principal.");
+			viewControl->print(NORMAL);
+			flag = false;
+		}
+		else if (move == "Guardar" || move == "guardar" || move == "GUARDAR")
+		{
+			string name;
+			system("cls");
+			viewControl->print(viewControl->alingWidthAndLength("Ingrese el nombre del juego.  "));
+			viewControl->print(viewControl->alingWidthAndLength("advertencia, si el nombre pertenece a otro juego ya almacenado, este se sobreescribira."));
+			name = inputControl->getString();
+			saveTheGame(name);
+			
+			flag = false;
+		}
+		else
+			if (move == "Cambiar" || move == "cambiar" || move == "CAMBIAR")
+			{
+				//luego
+			}
+			else
+				if (movement->move(move, Piece::white))
+				{
+
+				}
+	
+	}
+
+
 }
 
 void GameControler::saveTheGame(string name)
@@ -97,13 +193,15 @@ bool GameControler::makeTheGame()
 		viewControl->displayBoard(this->board);
 		viewControl->print("\n");
 		stringstream s;
-		s << "Ingrese el tipo de ficha que desea insertar: "<<endl;
+		s << "Ingrese el tipo de ficha que desea insertar: (Una ver seleccionado 'terminar', El juego iniciara.) "<<endl;
 		s <<"1. para piezas black ""O""" << endl;
 		s <<"2. para piezas White ""X""" << endl;
-		s <<"3. para terminar" << endl;
+		s <<"3. para piezas reina White ""W""" << endl;
+		s <<"4. para piezas reina Black ""X""" << endl;
+		s <<"5. para terminar" << endl;
 		viewControl->print(viewControl->centerString(s.str()));
 		viewControl->print(string(120 / 2, ' '),false);
-		switch (inputControl->getIntWhitLimits(1,2))
+		switch (inputControl->getIntWhitLimits(1,5))
 		{
 		case 1:
 		{
@@ -119,6 +217,22 @@ bool GameControler::makeTheGame()
 		}
 		case 2:
 		{
+			
+				viewControl->print("");
+				viewControl->print(viewControl->centerString("Inserte el numero equivalente a la posicion en la que desea ingresar la ficha: Ejemplo 50 == {5,0}"), false);
+				viewControl->print(string(120 / 2, ' '), false);
+				position = inputControl->getIntWhitLimits(11, 88);
+				cout << position;
+				y = position % 10;
+				cout << y;
+				position = position / 10;
+				x = position;
+				cout << x;
+				system("pause");
+				board->setPiece({ x,y }, new Men(Piece::white));
+			break;
+		}
+		case 3:
 			viewControl->print("");
 			viewControl->print(viewControl->centerString("Inserte el numero equivalente a la posicion en la que desea ingresar la ficha: Ejemplo 50 == {5,0}"), false);
 			viewControl->print(string(120 / 2, ' '), false);
@@ -126,10 +240,19 @@ bool GameControler::makeTheGame()
 			y = position % 10;
 			position = position / 10;
 			x = position;
-			board->setPiece({ x,y }, new Men(Piece::white));
+			board->setPiece({ x,y }, new King(Piece::white));
 			break;
-		}
-		case 3:
+		case 4:
+			viewControl->print("");
+			viewControl->print(viewControl->centerString("Inserte el numero equivalente a la posicion en la que desea ingresar la ficha: Ejemplo 50 == {5,0}"), false);
+			viewControl->print(string(120 / 2, ' '), false);
+			position = inputControl->getIntWhitLimits(11, 88);
+			y = position % 10;
+			position = position / 10;
+			x = position;
+			board->setPiece({ x,y }, new King(Piece::black));
+			break;
+		case 5:
 			return false;
 		default:
 			viewControl->print("Ha ingresado una opcion incorrecta, reingrese porfavor ");
@@ -140,9 +263,20 @@ bool GameControler::makeTheGame()
 	return true;
 }
 
-void GameControler::makeBasicBoard()
+bool GameControler::emptyBoard()
 {
-	board = new Board();
+
+	for (int i = 8; i > 0; i--)
+		for (int j = 1; j < 9; j++)
+			if (board->getSprite(i,j) == 'X' || board->getSprite(i, j) == 'O')
+				return false;
+				
+	return true;
+}
+
+void GameControler::startBasicBoard()
+{
+	this->board = new Board();
 
 	for (int i = 8; i >= 6; i--)
 		for (int j = 1; j <= board->MAX; j++)
