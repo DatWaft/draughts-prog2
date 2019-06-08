@@ -659,7 +659,10 @@ Weight MovementController::reconPosition(Coord position, Piece* piece)
 	// [ | |m] m = posición para ver si me pueden comer.
 	modifier = Coord() + UP + LEFT;
 	to_check = piece->getPosition() + modifier;
-	potential_enemy = board->getPiece(to_check);
+	if (bool(to_check))
+		potential_enemy = board->getPiece(to_check);
+	else
+		potential_enemy = nullptr;
 	to_eaten = piece->getPosition() + modifier.invert();
 
 	if (bool(to_check))	// Si la posición es valida.
@@ -719,7 +722,10 @@ Weight MovementController::reconPosition(Coord position, Piece* piece)
 	// [m| | ] m = posición para ver si me pueden comer.
 	modifier = Coord() + UP + RIGHT;
 	to_check = piece->getPosition() + modifier;
-	potential_enemy = board->getPiece(to_check);
+	if (bool(to_check))
+		potential_enemy = board->getPiece(to_check);
+	else
+		potential_enemy = nullptr;
 	to_eaten = piece->getPosition() + modifier.invert();
 
 	if (bool(to_check))	// Si la posición es valida.
@@ -779,7 +785,10 @@ Weight MovementController::reconPosition(Coord position, Piece* piece)
 	// [o| | ] m = posición para ver si me pueden comer.
 	modifier = Coord() + DOWN + LEFT;
 	to_check = piece->getPosition() + modifier;
-	potential_enemy = board->getPiece(to_check);
+	if (bool(to_check))
+		potential_enemy = board->getPiece(to_check);
+	else
+		potential_enemy = nullptr;
 	to_eaten = piece->getPosition() + modifier.invert();
 
 	if (bool(to_check))	// Si la posición es valida.
@@ -839,7 +848,10 @@ Weight MovementController::reconPosition(Coord position, Piece* piece)
 	// [ | |o] m = posición para ver si me pueden comer.
 	modifier = Coord() + DOWN + RIGHT;
 	to_check = piece->getPosition() + modifier;
-	potential_enemy = board->getPiece(to_check);
+	if (bool(to_check))
+		potential_enemy = board->getPiece(to_check);
+	else
+		potential_enemy = nullptr;
 	to_eaten = piece->getPosition() + modifier.invert();
 
 	if (bool(to_check))	// Si la posición es valida.
