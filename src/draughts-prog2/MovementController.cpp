@@ -233,6 +233,8 @@ List<Capture> MovementController::getCaptures(Piece* piece)
 List<Move> MovementController::getMovements(Men* piece)
 {
 	List<Move> moves;
+	if (!piece)
+		return moves;
 	// Modificadores:
 	const Coord UP = { 1,0 };
 	const Coord DOWN = { -1,0 };
@@ -285,6 +287,8 @@ List<Move> MovementController::getMovements(Men* piece)
 List<Move> MovementController::getMovements(King* piece)
 {
 	List<Move> moves;
+	if (!piece)
+		return moves;
 	// Modificadores:
 	const Coord UP = { 1,0 };
 	const Coord DOWN = { -1,0 };
@@ -332,6 +336,8 @@ List<Move> MovementController::getMovements(King* piece)
 List<Capture> MovementController::getCaptures(Men* piece)
 {
 	List<Capture> moves;
+	if (!piece)
+		return moves;
 	// Modificadores:
 	const Coord UP = { 1,0 };
 	const Coord DOWN = { -1,0 };
@@ -467,6 +473,8 @@ List<Capture> MovementController::getCaptures(Men* piece)
 List<Capture> MovementController::getCaptures(King* piece)
 {
 	List<Capture> moves;
+	if (!piece)
+		return moves;
 	// Modificadores:
 	const Coord UP = { 1,0 };
 	const Coord DOWN = { -1,0 };
