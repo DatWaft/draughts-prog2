@@ -11,6 +11,7 @@ public:
 	virtual ~InputController();
 
 	void validation();
+	bool intValidation(int);
 
 	string getString();
 	string getMovementInput();

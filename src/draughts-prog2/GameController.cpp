@@ -7,7 +7,7 @@ GameControler::GameControler()
 	this->inputControl = new InputController();
 	this->board = nullptr;
 	this->movement = nullptr;
-	
+	strategy = nullptr;
 }
 
 
@@ -22,19 +22,31 @@ bool GameControler::runTheGame()
 	while (true)
 	{
 		system("cls");
-
+		bool verifyOption = false;
 		
-		viewControl->displayMainMenu();
-		viewControl->print(YELLOW,false);
-		viewControl->print(string(35, ' ')+"Inserte la opcion de juego que desea realizar", false);
-		viewControl->print(NORMAL,false);
-		option = inputControl->getInt();
+		while (!verifyOption)
+		{
+			verifyOption = false;
+			viewControl->displayMainMenu();
+			viewControl->print(YELLOW, false);
+			viewControl->print(string(35, ' ') + "Inserte la opcion de juego que desea realizar", false);
+			viewControl->print(NORMAL, false);
+			option = inputControl->getInt();
+			if (inputControl->intValidation(option));
+			verifyOption = true;
+		}
+
 		switch (option)
 		{
 
 		case 1:
 			startBasicBoard();
+			if (strategy)
+			{
+				delete strategy;
+			}
 			this->movement = new MovementController(board);
+			strategy = new Random(movement);	
 			runTheGame(board);
 	
 			_getch();
@@ -104,7 +116,7 @@ void GameControler::runTheGame(Board*)
 {
 	bool flag = true;
 	bool moveFlag = false;
-	string move;
+	string move = " ";
 	string iaMove;
 	/*int opcion;*/
 
@@ -123,7 +135,7 @@ void GameControler::runTheGame(Board*)
 
 		viewControl->print(" ");
 		viewControl->print(YELLOW, false);
-		viewControl->print(viewControl->centerString("El movimiento de la maquina fue:" + string(42, ' ')),false);
+		viewControl->print(viewControl->centerString("El ultimo movimiento de la maquina fue: " + iaMove +(string(44- iaMove.size(), ' ') )),false);
 		viewControl->print(NORMAL, false);
 		viewControl->print(" ");
 		viewControl->print(YELLOW, false);
@@ -159,7 +171,8 @@ void GameControler::runTheGame(Board*)
 			else
 				if (movement->move(move, Piece::white))
 				{
-
+					iaMove = strategy->getMovement();
+					movement->move(iaMove, Piece::black);
 				}
 	
 	}

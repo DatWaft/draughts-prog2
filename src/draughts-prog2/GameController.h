@@ -2,6 +2,8 @@
 #include "ViewController.h"
 #include "InputController.h"
 #include "MovementController.h"
+#include "Random.h"
+#include "Strategy.h"
 #include <fstream>
 #include <iostream>
 
@@ -12,6 +14,8 @@ private:
 	InputController* inputControl;
 	MovementController* movement;
 	Board* board;
+	Strategy* strategy;
+
 public:
 	GameControler();
 	~GameControler();

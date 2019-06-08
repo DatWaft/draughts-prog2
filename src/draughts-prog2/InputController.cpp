@@ -12,9 +12,19 @@ InputController::~InputController()
 
 void InputController::validation()
 {
-	cout << "Reingrese el dato " << endl;
+	cout << "\nReingrese el dato " << endl;
 	cin.clear();
 	cin.ignore();
+}
+
+bool InputController::intValidation(int number)
+{
+	stringstream s(number);
+
+	for (int i = 0; i < s.str().size(); i++)
+		if (s.str()[i] < 49 || s.str()[i] > 64)
+			return false;
+	return true;
 }
 
 
