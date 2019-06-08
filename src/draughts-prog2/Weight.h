@@ -20,7 +20,5 @@ struct Weight
 	Weight operator -(const Weight&);
 	void operator +=(const Weight&);
 	void operator -=(const Weight&);
-
-	friend ostream& operator << (ostream&, const Weight&);
 };
 

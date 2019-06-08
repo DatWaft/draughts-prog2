@@ -40,9 +40,3 @@ void Weight::operator-=(const Weight& object)
 {
 	*this = *this - object;
 }
-
-ostream& operator<<(ostream& out, const Weight& object)
-{
-	out << string(object);
-	return out;
-}
