@@ -31,7 +31,7 @@ public:
 	void startBasicBoard();
 	Board* getBoard();
 	Board* restoreTheGame(string,string*);
-	bool winner(string*);
+	bool winner(string&);
 	void checkAndUpgrade();
 };
 

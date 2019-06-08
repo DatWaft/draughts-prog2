@@ -11,6 +11,8 @@ string Random::getMovement() const
 	if (v1.empty())
 	{
 		auto v2 = controller->getMovements(color);
+		if (v2.empty())
+			return "00 00";
 		return string(v2[rand() % v2.getSize()]);
 	}
 	else

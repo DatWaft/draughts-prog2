@@ -180,7 +180,7 @@ void GameControler::runTheGame(Board*, bool charge)
 	
 	while (flag)
 	{
-		if (!winner(&win))
+		if (!winner(win))
 		{
 			flag = false;
 			break;
@@ -205,7 +205,7 @@ void GameControler::runTheGame(Board*, bool charge)
 			viewControl->showList<Move>(movement->getMovements(Piece::white), "w");
 		}
 		else
-			viewControl->showList<Capture>(movement->getCaptures(Piece::white), "w");
+			viewControl->showList<Capture>(movement->purgeCaptures(movement->getCaptures(Piece::white)), "w");
 
 		viewControl->print(NORMAL, false);
 		viewControl->print(" ");
@@ -301,7 +301,7 @@ void GameControler::runTheGame(Board*, bool charge)
 						}
 					}
 	
-		if (!winner(&win))
+		if (!winner(win))
 			flag = false;
 	}
 
@@ -516,18 +516,18 @@ Board* GameControler::restoreTheGame(string gameSaved,string* strategyName)
 	return b;
 }
 
-bool GameControler::winner(string* winner)
+bool GameControler::winner(string& winner)
 {
 	if (movement->getCaptures(Piece::white).empty() && movement->getMovements(Piece::white).empty())
 	{
-		*winner = "Black";
+		winner = "Black";
 		return false;
 		
 	}
 	else
 		if (movement->getCaptures(Piece::black).empty() && movement->getMovements(Piece::black).empty())
 		{
-			*winner = "White";
+			winner = "White";
 			return false;
 			
 		}

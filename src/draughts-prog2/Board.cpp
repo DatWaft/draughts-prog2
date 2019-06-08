@@ -1,4 +1,7 @@
 #include "Board.h"
+#include <iostream>
+using std::cout;
+using std::endl;
 
 Board::Board()
 {
@@ -48,7 +51,6 @@ bool Board::movePiece(Coord source, Coord destination)
 	setPiece(destination, getPiece(source));
 	setPiece(source, nullptr);
 	return true;
-
 }
 
 void Board::setPiece(Coord coord, Piece* piece)
