@@ -11,32 +11,23 @@ MovementController::~MovementController()
 
 bool MovementController::move(string str, Piece::sprite color)
 {
-	Move* move = str_to_move(str);
-	if (!move)
+	Move move_m = str_to_move(str);
+	Capture move_c = str_to_capture(str);
+	if (!move_m)
 		return false;
-	if (bool(*move))
+	if (bool(move_m))
 	{
-		if (Capture* capture = dynamic_cast<Capture*>(move))
-		{
-			bool buffer = this->move(*capture, color);
-			delete move;
-			return buffer;
-		}
-		else
-		{
-			bool buffer = this->move(*move, color);
-			delete move;
-			return buffer;
-		}
+		if (move(move_m, color))
+			return true;
+		return move(move_c, color);
 	}
-	delete move;
 	return false;
 }
 
-Move* MovementController::str_to_move(string str)
+Move MovementController::str_to_move(string str)
 {
 	if (str.length() < 5)
-		return nullptr;
+		return Move();
 
 	stringstream s(str);
 	string aux;
@@ -45,7 +36,7 @@ Move* MovementController::str_to_move(string str)
 	Coord destination;
 
 	if (!getline(s, aux, ' ') || aux.length() != 2)
-		return nullptr;
+		return Move();
 
 	try
 	{
@@ -53,11 +44,11 @@ Move* MovementController::str_to_move(string str)
 	}
 	catch (...)
 	{
-		return nullptr;
+		return Move();
 	}
 
 	if (!getline(s, aux, ' ') || aux.length() != 2)
-		return nullptr;
+		return Move();
 
 	try
 	{
@@ -65,38 +56,67 @@ Move* MovementController::str_to_move(string str)
 	}
 	catch (...)
 	{
-		return nullptr;
+		return Move();
 	}
 
-	// Aquí se decide si el movimiento es simple o comer:
-	if (abs(source.i - destination.i) == 1 && abs(source.j - destination.j) == 1)
-		return new Move(source, destination);
-	else
+	return Move(source, destination);
+}
+
+Capture MovementController::str_to_capture(string str)
+{
+	if (str.length() < 5)
+		return Capture();
+
+	stringstream s(str);
+	string aux;
+
+	Coord source;
+	Coord destination;
+
+	if (!getline(s, aux, ' ') || aux.length() != 2)
+		return Capture();
+
+	try
 	{
-		Capture* move = new Capture(source, destination);
-		Capture* pointer = move;
-
-		while (getline(s, aux, ' '))
-		{
-			if (aux.length() != 2)
-			{
-				delete move;
-				return nullptr;
-			}
-			try
-			{
-				pointer = pointer->createSubsequent({ stoi(string(1,aux[0])),stoi(string(1,aux[1])) });
-			}
-			catch (...)
-			{
-				delete move;
-				return nullptr;
-			}
-		}
-
-		std::cout << std::endl << string(*move) << std::endl;
-		return move;
+		source = { stoi(string(1,aux[0])),stoi(string(1,aux[1])) };
 	}
+	catch (...)
+	{
+		return Capture();
+	}
+
+	if (!getline(s, aux, ' ') || aux.length() != 2)
+		return Capture();
+
+	try
+	{
+		destination = { stoi(string(1,aux[0])),stoi(string(1,aux[1])) };
+	}
+	catch (...)
+	{
+		return Capture();
+	}
+
+	Capture move = Capture(source, destination);
+	Capture* pointer = &move;
+
+	while (getline(s, aux, ' '))
+	{
+		if (aux.length() != 2)
+		{
+			return Capture();
+		}
+		try
+		{
+			pointer = pointer->createSubsequent({ stoi(string(1,aux[0])),stoi(string(1,aux[1])) });
+		}
+		catch (...)
+		{
+			return Capture();
+		}
+	}
+
+	return move;
 }
 
 bool MovementController::move(Move move, Piece::sprite color)

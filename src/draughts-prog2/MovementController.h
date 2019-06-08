@@ -17,7 +17,8 @@ public:
 	~MovementController();
 	bool move(string, Piece::sprite);
 
-	Move* str_to_move(string);
+	Move str_to_move(string);
+	Capture str_to_capture(string);
 	bool move(Move, Piece::sprite);
 	bool move(Capture, Piece::sprite);
 
