@@ -5,8 +5,8 @@
     <id>UMLClass</id>
     <coordinates>
       <x>1000</x>
-      <y>430</y>
-      <w>120</w>
+      <y>450</y>
+      <w>140</w>
       <h>30</h>
     </coordinates>
     <panel_attributes>ViewController</panel_attributes>
@@ -37,13 +37,13 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1070</x>
+      <x>1090</x>
       <y>340</y>
-      <w>120</w>
-      <h>110</h>
+      <w>100</w>
+      <h>130</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;</panel_attributes>
-    <additional_attributes>10.0;90.0;10.0;50.0;100.0;50.0;100.0;10.0</additional_attributes>
+    <additional_attributes>10.0;110.0;10.0;50.0;80.0;50.0;80.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -51,10 +51,10 @@
       <x>980</x>
       <y>340</y>
       <w>80</w>
-      <h>110</h>
+      <h>130</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;50.0;60.0;50.0;60.0;90.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0;60.0;50.0;60.0;110.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -411,5 +411,38 @@ m2=2</panel_attributes>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
     <additional_attributes>10.0;50.0;10.0;10.0;680.0;10.0;680.0;220.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1000</x>
+      <y>220</y>
+      <w>140</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>InputController</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1090</x>
+      <y>240</y>
+      <w>100</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>80.0;80.0;80.0;40.0;10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>970</x>
+      <y>240</y>
+      <w>90</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;40.0;70.0;40.0;70.0;10.0</additional_attributes>
   </element>
 </diagram>
