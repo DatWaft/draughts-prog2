@@ -1,6 +1,7 @@
 #pragma once
 #include "MovementController.h"
 
+
 class Strategy
 {
 protected:

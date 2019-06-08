@@ -3,9 +3,13 @@
 #include "InputController.h"
 #include "MovementController.h"
 #include "Random.h"
+#include "Balanced.h"
+#include "FullAttack.h"
+#include "FullDefense.h"
 #include "Strategy.h"
 #include <fstream>
 #include <iostream>
+
 
 class GameControler
 {

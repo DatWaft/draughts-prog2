@@ -60,10 +60,10 @@ void ViewController::displayMainMenu()
 	
 	string aux;
 	menuLine << CYAN << endl;
-	menuLine << "1. Estrategia 1" << endl;
-	menuLine << "2. Estrategia 2" << endl;
-	menuLine << "3. Estrategia 3" << endl;
-	menuLine << "4. Estrategia 4" << endl;
+	menuLine << "1. Estrategia random" << endl;
+	menuLine << "2. Estrategia balanceada" << endl;
+	menuLine << "3. Estrategia full ataque" << endl;
+	menuLine << "4. Estrategia full defensa" << endl;
 	menuLine << "5. Cargar juego" << endl;
 	menuLine << "6. Crear juego" << endl;
 	menuLine << "7. Salir" << endl;

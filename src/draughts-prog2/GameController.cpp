@@ -40,35 +40,60 @@ bool GameControler::runTheGame()
 		{
 
 		case 1:
+		{	startBasicBoard();
+		if (strategy)
+		{
+			delete strategy;
+		}
+		this->movement = new MovementController(board);
+		strategy = new Random(movement);
+		runTheGame(board);
+
+		_getch();
+		break;
+		}
+		case 2:
+		{
 			startBasicBoard();
 			if (strategy)
 			{
 				delete strategy;
 			}
-			this->movement = new MovementController(board);
-			strategy = new Random(movement);	
-			runTheGame(board);
-	
-			_getch();
-			break;
-		case 2:
 			startBasicBoard();
 			this->movement = new MovementController(board);
+			strategy = new Balanced(movement);
 			runTheGame(board);
 			system("pause");
 			break;
+		}
 			case 3:
+			{
+				startBasicBoard();
+				if (strategy)
+				{
+					delete strategy;
+				}
 				startBasicBoard();
 				this->movement = new MovementController(board);
+				strategy = new FullAttack(movement);
 				runTheGame(board);
 				system("pause");
 				break;
+			}
 			case 4:
+			{
+				startBasicBoard();
+				if (strategy)
+				{
+					delete strategy;
+				}
 				startBasicBoard();
 				this->movement = new MovementController(board);
+				strategy = new FullDefense(movement);
 				runTheGame(board);
 				system("pause");
 				break;
+			}
 			case 5: //cargar
 			{
 				system("cls");
@@ -202,11 +227,20 @@ void GameControler::runTheGame(Board*)
 					break;
 				}
 				case 2:
-				{}
+				{
+					strategy = new Balanced(movement);
+					break;
+				}
 				case 3:
-				{}
+				{
+					strategy = new FullAttack(movement);
+					break;
+				}
 				case 4:
-				{}
+				{
+					strategy = new FullDefense(movement);
+					break;
+				}
 
 				}
 			}
@@ -229,7 +263,7 @@ void GameControler::runTheGame(Board*)
 					}
 	
 		if (!winner(win))
-			flag == false;
+			flag = false;
 	}
 
 	system("cls");
