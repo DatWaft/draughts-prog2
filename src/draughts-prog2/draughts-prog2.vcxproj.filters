@@ -52,6 +52,12 @@
     <Filter Include="Archivos de origen\Juego\Movimientos">
       <UniqueIdentifier>{e4939609-b5fc-4acc-88f0-0d5c8677c873}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Estrategias">
+      <UniqueIdentifier>{15433b91-62a5-493b-b8d0-c914eabdfea6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Estrategias">
+      <UniqueIdentifier>{3e4aaaa3-3f36-42d5-a5e6-a99df308a077}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -98,6 +104,12 @@
     </ClCompile>
     <ClCompile Include="MovementController.cpp">
       <Filter>Archivos de origen\Controladores</Filter>
+    </ClCompile>
+    <ClCompile Include="Strategy.cpp">
+      <Filter>Archivos de origen\Estrategias</Filter>
+    </ClCompile>
+    <ClCompile Include="Random.cpp">
+      <Filter>Archivos de origen\Estrategias</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +160,12 @@
     </ClInclude>
     <ClInclude Include="MovementController.h">
       <Filter>Archivos de encabezado\Controladores</Filter>
+    </ClInclude>
+    <ClInclude Include="Strategy.h">
+      <Filter>Archivos de encabezado\Estrategias</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>Archivos de encabezado\Estrategias</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
