@@ -57,9 +57,10 @@ string InputController::getMovementInput()
 int InputController::getInt()
 {
 	int data;
-
+	cout << ESC"[s";
 		while (!(cin >> data))
 		{
+			cout << ESC"[u";
 			validation();
 		}
 

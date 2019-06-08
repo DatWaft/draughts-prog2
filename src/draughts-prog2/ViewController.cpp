@@ -59,6 +59,7 @@ void ViewController::displayMainMenu()
 	stringstream menuLine;
 	
 	string aux;
+	menuLine << CYAN << endl;
 	menuLine << "1. Estrategia 1" << endl;
 	menuLine << "2. Estrategia 2" << endl;
 	menuLine << "3. Estrategia 3" << endl;
@@ -66,9 +67,25 @@ void ViewController::displayMainMenu()
 	menuLine << "5. Cargar juego" << endl;
 	menuLine << "6. Crear juego" << endl;
 	menuLine << "7. Salir" << endl;
+	menuLine << NORMAL << endl;
 
 	print(alingWidthAndLength(menuLine.str()));
 	
+}
+
+void ViewController::displayMainInstructions()
+{
+	stringstream s2;
+	s2 << "+" << string(103, '-') << "+" << endl;
+	s2 << "| Instrucciones basicas para la aplicacion de movimientos y otras opciones:                             |" << endl;
+	s2 << "| 1. Los movimientos validos solo tienen la forma: posicion actual (ij) espacio( ) posicion destino (ij)|" << endl;
+	s2 << "| 2. para movimientos mas complicados como el de reyes y comer doble consultar la documentacion.        |" << endl;
+	s2 << "| 3. Para guardar y salir, en vez de colocar el movimiento puede colocar la palabra 'Guardar'           |" << endl;
+	s2 << "| 4. Para salir sin guardar, en vez de colocar el movimiento puede colocar la palabra 'Salir'           |" << endl;
+	s2 << "| 5. Para cambiar manualmente la estrategia del IA puede coloar la palabra 'Cambiar'                    |" << endl;
+	s2 << "+" << string(103, '-') << "+" << endl;
+
+	print(centerString(s2.str()));
 }
 
 size_t ViewController::amountOfStrings(string s)

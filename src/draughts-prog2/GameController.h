@@ -19,6 +19,7 @@ public:
 	void runTheGame(Board*);
 	void saveTheGame(string);
 	bool makeTheGame();
+	bool emptyBoard();
 	void startBasicBoard();
 	Board* getBoard();
 	Board* restoreTheGame(string);
